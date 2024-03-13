@@ -1,0 +1,14 @@
+{
+  "extends": "@nxweb/builder/ts/react",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "typeRoots": ["types", "node_modules/@types"]
+  },
+  "exclude": [
+    "**/~*"
+  ],
+  "include": [
+    "types/**/*",
+    "src/**/*"
+  ]
+}
