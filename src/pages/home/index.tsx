@@ -1,30 +1,69 @@
-import type { PageComponent } from '@nxweb/react';
+import { useEffect, useMemo } from 'react';
 
-import { Card, CardContent, CardHeader, Grid, Typography } from '@components/material.js';
+import type { PageComponent } from '@nxweb/react';
+import { Button } from '@nxweb/react-bootstrap';
+
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  Typography
+} from '@components/material.js';
+import { useCommand, useStore } from '@models/store';
 
 const Home: PageComponent = () => {
+  const [state, dispatch] = useStore((store) => store.books);
+  const command = useCommand((cmd) => cmd);
+  const books = useMemo(() => state?.books, [state]);
+
+  const book = {
+    author: 'Book Tambahan',
+    cover_image: 'string',
+    description: 'string',
+    genre: [''],
+    id: 1,
+    publication_year: 1,
+    title: 'string'
+  };
+
+  useEffect(() => {
+    // * EXAMPLE USAGE OF "GET" COMMANDS
+    dispatch(command.books.load()).catch((err: unknown) => {
+      console.error(err);
+    });
+
+    // * EXAMPLE USAGE OF "GET_ONE" COMMANDS
+    dispatch(command.books.loadOne(1)).catch((err: unknown) => {
+      console.error(err);
+    });
+
+    // * CLEARING STATE AFTER LEAVING THE PAGE
+    return () => {
+      dispatch(command.books.clear());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleClick = () => {
+    // * EXAMPLE USAGE OF "ADD" COMMANDS
+    dispatch(command.books.add(book));
+  };
+
   return (
     <Grid container={true} spacing={6}>
       <Grid item={true} xs={12}>
         <Card>
           <CardHeader title="Kick start your project 🚀" />
           <CardContent>
-            <Typography sx={{ mb: 2 }}>All the best for your new project.</Typography>
+            <Button onClick={handleClick}>Add Book</Button>
+            {books?.map((book) => (
+              <p key={book.id}>{book.title}</p>
+            ))}
             <Typography>
-              Please make sure to read our Template Documentation to understand where to go from here and how to use our
-              template.
+              Please make sure to read our Template Documentation to understand
+              where to go from here and how to use our template.
             </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item={true} xs={12}>
-        <Card>
-          <CardHeader title="ACL and JWT 🔒" />
-          <CardContent>
-            <Typography sx={{ mb: 2 }}>
-              Access Control (ACL) and Authentication (JWT) are the two main security features of our template and are implemented in the starter-kit as well.
-            </Typography>
-            <Typography>Please read our Authentication and ACL Documentations to get more out of them.</Typography>
           </CardContent>
         </Card>
       </Grid>

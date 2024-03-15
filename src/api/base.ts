@@ -3,7 +3,10 @@ import type { FetchURLOptions } from '@nxweb/core';
 
 import { apiMock } from './mock.js';
 
-export const apiURL = (endpoint: string, options: Readonly<FetchURLOptions> = {}) => {
+export const apiURL = (
+  endpoint: string,
+  options: Readonly<FetchURLOptions> = {}
+) => {
   return createFetchURL(
     endpoint,
     compact({
@@ -15,7 +18,11 @@ export const apiURL = (endpoint: string, options: Readonly<FetchURLOptions> = {}
   );
 };
 
-export const API = (token: string, type: string = 'Bearer' as const, mocked: boolean = false) => {
+export const API = (
+  token: string,
+  type: string = 'Bearer' as const,
+  mocked: boolean = false
+) => {
   const fetch = createFetch({
     get baseURL() {
       return window.NX.env.apiURL;
@@ -26,4 +33,20 @@ export const API = (token: string, type: string = 'Bearer' as const, mocked: boo
   });
 
   return mocked ? apiMock(fetch) : fetch;
+};
+
+export const apiURLBooks = (
+  endpoint: string,
+  options: Readonly<FetchURLOptions> = {}
+) => {
+  return createFetchURL(endpoint, {
+    baseURL: window.NX?.env?.apiBooks,
+    ...options
+  });
+};
+
+export const APIBooks = () => {
+  return createFetch({
+    baseURL: window.NX?.env?.apiBooks
+  });
 };

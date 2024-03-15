@@ -1,7 +1,9 @@
+import type { BooksModel } from './books/types';
 import type { ProductsAction, ProductsModel } from './products/types';
 
 export interface RootModel {
-  products?: ProductsModel
+  books?: BooksModel;
+  products?: ProductsModel;
 }
 
 export type RootAction = ProductsAction;
