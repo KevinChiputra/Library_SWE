@@ -5,7 +5,19 @@ import { useNavigate } from 'react-router-dom';
 import { DotsVertical } from '@nxweb/icons/tabler';
 import type { PageComponent } from '@nxweb/react';
 
-import { IconButton, Menu, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useTheme } from '@components/material.js';
+import {
+  IconButton,
+  Menu,
+  MenuItem,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  useTheme,
+} from '@components/material.js';
 import { useCommand, useStore } from '@models/store.js';
 
 const Products: PageComponent = () => {
@@ -32,10 +44,9 @@ const Products: PageComponent = () => {
   };
 
   useEffect(() => {
-    dispatch(command.products.load(''))
-      .catch((err: unknown) => {
-        console.error(err);
-      });
+    dispatch(command.products.load()).catch((err: unknown) => {
+      console.error(err);
+    });
 
     return () => {
       dispatch(command.products.clear());
@@ -51,7 +62,9 @@ const Products: PageComponent = () => {
               <TableCell>ID</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Description</TableCell>
-              <TableCell align="center" width={40}>Action</TableCell>
+              <TableCell align="center" width={40}>
+                Action
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -60,9 +73,10 @@ const Products: PageComponent = () => {
                 key={row.id}
                 sx={{
                   '&:last-child td, &:last-child th': {
-                    border: 0
+                    border: 0,
                   },
-                  backgroundColor: id === row.id ? theme.palette.divider : 'inherit'
+                  backgroundColor:
+                    id === row.id ? theme.palette.divider : 'inherit',
                 }}
               >
                 <TableCell component="th" scope="row">

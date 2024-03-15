@@ -11,18 +11,20 @@ const Product: PageComponent = () => {
   const [state, dispatch] = useStore((store) => store.products);
   const command = useCommand((cmd) => cmd);
 
-  const product = useMemo(() => state?.products?.find((o) => o.id.toString() === id), [state, id]);
+  const product = useMemo(
+    () => state?.products?.find((o) => o.id.toString() === id),
+    [state, id]
+  );
 
   useEffect(() => {
-    dispatch(command.products.load(''))
-      .catch((err: unknown) => {
-        console.error(err);
-      });
+    dispatch(command.products.load()).catch((err: unknown) => {
+      console.error(err);
+    });
 
     return () => {
       dispatch(command.products.clear());
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -33,9 +35,7 @@ const Product: PageComponent = () => {
       </h1>
 
       <div>{product?.description}</div>
-      <pre>
-        {product ? JSON.stringify(product, null, 2) : null}
-      </pre>
+      <pre>{product ? JSON.stringify(product, null, 2) : null}</pre>
     </>
   );
 };

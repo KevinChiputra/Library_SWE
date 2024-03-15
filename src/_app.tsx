@@ -1,4 +1,5 @@
-import {  Suspense } from 'react';
+/* eslint-disable import/no-unresolved */
+import { Suspense } from 'react';
 import type { FC } from 'react';
 
 import { CacheProvider } from '@emotion/react';
@@ -20,7 +21,8 @@ const clientSideEmotionCache = createEmotionCache();
 
 // eslint-disable-next-line react/require-default-props
 const App: FC<LayoutWrapperProps> = ({
-  emotionCache = clientSideEmotionCache, ...props
+  emotionCache = clientSideEmotionCache,
+  ...props
 }) => {
   return (
     <CacheProvider value={emotionCache}>
@@ -46,11 +48,11 @@ const App: FC<LayoutWrapperProps> = ({
         loader={<PageSpinner />}
         manual={true}
       > */}
-        <SettingsProvider>
-          <Suspense fallback={<PageSpinner />}>
-            <LayoutWrapper emotionCache={emotionCache} {...props} />
-          </Suspense>
-        </SettingsProvider>
+      <SettingsProvider>
+        <Suspense fallback={<PageSpinner />}>
+          <LayoutWrapper emotionCache={emotionCache} {...props} />
+        </Suspense>
+      </SettingsProvider>
       {/* </AuthProvider> */}
     </CacheProvider>
   );
