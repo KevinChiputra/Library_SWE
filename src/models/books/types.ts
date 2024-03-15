@@ -40,7 +40,7 @@ type BooksAction =
     }
   | {
       type: BooksActionType.REMOVE;
-      value?: BooksModel;
+      value?: Book;
     }
   | {
       type: BooksActionType.UPDATE;

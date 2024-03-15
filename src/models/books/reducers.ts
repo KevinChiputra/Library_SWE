@@ -17,6 +17,17 @@ const booksReducer = (
       }
 
       return state;
+    case BooksActionType.REMOVE:
+      if (state.books && action.value) {
+        return {
+          ...state,
+          books: state.books.filter((book) => book.id !== action.value?.id)
+        };
+      }
+
+      return state;
+    case BooksActionType.UPDATE:
+      return { ...state, ...action.value };
     case BooksActionType.CLEAR:
       return {};
 

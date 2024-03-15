@@ -55,6 +55,18 @@ const booksCommand = {
         console.error(err);
       }
     };
+  },
+  remove: (book: Book): BooksAction => {
+    return {
+      type: BooksActionType.REMOVE,
+      value: book
+    };
+  },
+  update: (value: BooksModel): BooksAction => {
+    return {
+      type: BooksActionType.UPDATE,
+      value
+    };
   }
 } satisfies Command<RootModel, BooksAction>;
 

@@ -22,9 +22,9 @@ const Home: PageComponent = () => {
     cover_image: 'string',
     description: 'string',
     genre: [''],
-    id: 1,
+    id: 1000,
     publication_year: 1,
-    title: 'string'
+    title: 'Book Tambahan'
   };
 
   useEffect(() => {
@@ -45,9 +45,14 @@ const Home: PageComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleClick = () => {
+  const addBook = () => {
     // * EXAMPLE USAGE OF "ADD" COMMANDS
     dispatch(command.books.add(book));
+  };
+
+  const removeBook = () => {
+    // * EXAMPLE USAGE OF "REMOVE" COMMANDS
+    dispatch(command.books.remove(book));
   };
 
   return (
@@ -56,10 +61,11 @@ const Home: PageComponent = () => {
         <Card>
           <CardHeader title="Kick start your project 🚀" />
           <CardContent>
-            <Button onClick={handleClick}>Add Book</Button>
             {books?.map((book) => (
               <p key={book.id}>{book.title}</p>
             ))}
+            <Button onClick={addBook}>Add Book</Button>
+            <Button onClick={removeBook}>Remove Book</Button>
             <Typography>
               Please make sure to read our Template Documentation to understand
               where to go from here and how to use our template.
