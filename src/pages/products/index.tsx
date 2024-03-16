@@ -19,6 +19,7 @@ import {
   useTheme
 } from '@components/material.js';
 import { useCommand, useStore } from '@models/store.js';
+import Pagination from '@mui/material/Pagination';
 
 const Products: PageComponent = () => {
   const navigate = useNavigate();
@@ -53,12 +54,29 @@ const Products: PageComponent = () => {
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Set Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10;
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = state?.products?.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer
+        component={Paper}
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      >
         <Table sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow>
+              <TableCell align="center" width={200}>
+                Image
+              </TableCell>
               <TableCell>ID</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Description</TableCell>
@@ -68,16 +86,19 @@ const Products: PageComponent = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {state?.products?.map((row) => (
+            {currentProducts?.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{
                   '&:last-child td, &:last-child th': {
-                    border: 0
+                    border: 0,
                   },
                   backgroundColor:
                     id === row.id ? theme.palette.divider : 'inherit'
                 }}>
+                <TableCell component="th" scope="row">
+                  <img src={row.cover_image} alt="" css={{ width: '100% ', borderRadius: '4px' }} />
+                </TableCell>
                 <TableCell component="th" scope="row">
                   {row.id}
                 </TableCell>
@@ -92,6 +113,13 @@ const Products: PageComponent = () => {
             ))}
           </TableBody>
         </Table>
+        {state?.products && ( // Penambahan pengecekan
+          <Pagination
+            count={Math.ceil(state.products.length / productsPerPage)}
+            color="primary"
+            onChange={(_, page) => setCurrentPage(page)}
+          />
+        )}
       </TableContainer>
       <Menu
         anchorEl={anchorEl}
