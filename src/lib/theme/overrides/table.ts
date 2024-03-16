@@ -31,10 +31,11 @@ export const Table = () => {
             color: theme.palette.text.secondary,
             letterSpacing: '0.25px',
 
-            '&:not(.MuiTableCell-sizeSmall):not(.MuiTableCell-paddingCheckbox):not(.MuiTableCell-paddingNone)': {
-              paddingBottom: theme.spacing(3.5),
-              paddingTop: theme.spacing(3.5)
-            }
+            '&:not(.MuiTableCell-sizeSmall):not(.MuiTableCell-paddingCheckbox):not(.MuiTableCell-paddingNone)':
+              {
+                paddingBottom: theme.spacing(3.5),
+                paddingTop: theme.spacing(3.5)
+              }
           }
         })
       }
@@ -42,7 +43,7 @@ export const Table = () => {
     MuiTableRow: {
       styleOverrides: {
         root: ({ theme }: OwnerStateThemeType) => ({
-          '& .MuiTableCell-head:not(.MuiTableCell-paddingCheckbox):first-child, & .MuiTableCell-root:not(.MuiTableCell-paddingCheckbox):first-child ':
+          '& .MuiTableCell-head:not(.MuiTableCell-paddingCheckbox):first-of-type, & .MuiTableCell-root:not(.MuiTableCell-paddingCheckbox):first-of-type ':
             {
               paddingLeft: theme.spacing(6)
             },

@@ -3,15 +3,13 @@ import { useEffect, useMemo } from 'react';
 import type { PageComponent } from '@nxweb/react';
 import { Button } from '@nxweb/react-bootstrap';
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  Typography
-} from '@components/material.js';
+import { Card, CardContent, Grid } from '@components/material.js';
 import type { Book } from '@models/books/types';
 import { useCommand, useStore } from '@models/store';
+
+import SearchBar from '@components/home/search-bar';
+import Header from '@components/home/header';
+import BookList from '@components/home/book-list';
 
 const Home: PageComponent = () => {
   const [state, dispatch] = useStore((store) => store.books);
@@ -39,11 +37,6 @@ const Home: PageComponent = () => {
   };
 
   useEffect(() => {
-    // * EXAMPLE USAGE OF "GET" COMMANDS
-    dispatch(command.books.load()).catch((err: unknown) => {
-      console.error(err);
-    });
-
     // * EXAMPLE USAGE OF "GET_ONE" COMMANDS
     dispatch(command.books.loadOne(1)).catch((err: unknown) => {
       console.error(err);
@@ -78,37 +71,31 @@ const Home: PageComponent = () => {
   };
 
   return (
-    <Grid container={true} spacing={6}>
-      <Grid item={true} xs={12}>
-        <Card>
-          <CardHeader title="Kick start your project 🚀" />
-          <CardContent>
-            <Typography>
-              Please make sure to read our Template Documentation to understand
-              where to go from here and how to use our template.
-            </Typography>
-          </CardContent>
-        </Card>
+    <div>
+      <SearchBar />
+      <Header />
+      <BookList />
+      <Grid container={true} spacing={6}>
+        <Grid item={true} xs={12}>
+          <Card>
+            <CardContent>
+              {books?.map((book) => (
+                <p key={book.id}>{book.title}</p>
+              ))}
+              <Button onClick={addBook}>Add Book</Button>
+              <Button onClick={removeBook}>Remove Book</Button>
+              <Button
+                onClick={() => {
+                  updateBook(updatedBook);
+                }}>
+                Update Book
+              </Button>
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-      <Grid item={true} xs={12}>
-        <Card>
-          <CardContent>
-            {books?.map((book) => (
-              <p key={book.id}>{book.title}</p>
-            ))}
-            <Button onClick={addBook}>Add Book</Button>
-            <Button onClick={removeBook}>Remove Book</Button>
-            <Button
-              onClick={() => {
-                updateBook(updatedBook);
-              }}>
-              Update Book
-            </Button>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
+    </div>
   );
 };
 
-export default index;
+export default Home;

@@ -27,6 +27,9 @@ export const API = (
     get baseURL() {
       return window.NX.env.apiURL;
     },
+    headers: compact({
+      authorization: [type, token].filter(Boolean).join(' ')
+    })
   });
 
   return mocked ? apiMock(fetch) : fetch;

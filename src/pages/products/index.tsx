@@ -19,12 +19,15 @@ import {
   useTheme
 } from '@components/material.js';
 import { useCommand, useStore } from '@models/store.js';
+import { Book } from '@models/books/types';
+
+import DeleteIcon from '@mui/icons-material/Delete';
 import Pagination from '@mui/material/Pagination';
 
-const Products: PageComponent = () => {
+const Books: PageComponent = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const [state, dispatch] = useStore((store) => store.products);
+  const [state, dispatch] = useStore((store) => store.books);
   const command = useCommand((cmd) => cmd);
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -41,36 +44,44 @@ const Products: PageComponent = () => {
   };
 
   const handleDetail = () => {
-    navigate(`/products/${id}`);
+    navigate(`/books/${id}`);
   };
 
   useEffect(() => {
-    dispatch(command.products.load()).catch((err: unknown) => {
+    dispatch(command.books.load()).catch((err: unknown) => {
       console.error(err);
     });
 
     return () => {
-      dispatch(command.products.clear());
+      dispatch(command.books.clear());
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   // Set Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 10;
+  const booksPerPage = 10;
 
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = state?.products?.slice(
+  const indexOfLastProduct = currentPage * booksPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - booksPerPage;
+  const currentbooks = state?.books?.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
+
+  const handleDelete = (book: Book) => {
+    dispatch(command.books.remove(book));
+  };
 
   return (
     <>
       <TableContainer
         component={Paper}
-        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-      >
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          paddingBottom: '1rem'
+        }}>
         <Table sx={{ minWidth: 500 }}>
           <TableHead>
             <TableRow>
@@ -83,21 +94,26 @@ const Products: PageComponent = () => {
               <TableCell align="center" width={40}>
                 Action
               </TableCell>
+              <TableCell>Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {currentProducts?.map((row) => (
+            {currentbooks?.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{
                   '&:last-child td, &:last-child th': {
-                    border: 0,
+                    border: 0
                   },
                   backgroundColor:
                     id === row.id ? theme.palette.divider : 'inherit'
                 }}>
                 <TableCell component="th" scope="row">
-                  <img src={row.cover_image} alt="" css={{ width: '100% ', borderRadius: '4px' }} />
+                  <img
+                    src={row.cover_image}
+                    alt=""
+                    css={{ width: '100% ', borderRadius: '4px' }}
+                  />
                 </TableCell>
                 <TableCell component="th" scope="row">
                   {row.id}
@@ -109,13 +125,25 @@ const Products: PageComponent = () => {
                     <DotsVertical />
                   </IconButton>
                 </TableCell>
+                <TableCell align="center">
+                  <DeleteIcon
+                    sx={{
+                      color: 'grey',
+                      cursor: 'pointer',
+                      '&:hover': {
+                        color: '#E3242B'
+                      }
+                    }}
+                    onClick={() => handleDelete(row)}
+                  />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        {state?.products && ( // Penambahan pengecekan
+        {state?.books && ( // Penambahan pengecekan
           <Pagination
-            count={Math.ceil(state.products.length / productsPerPage)}
+            count={Math.ceil(state.books.length / booksPerPage)}
             color="primary"
             onChange={(_, page) => setCurrentPage(page)}
           />
@@ -133,6 +161,4 @@ const Products: PageComponent = () => {
   );
 };
 
-Products.displayName = 'Products';
-
-export default Products;
+export default Books;

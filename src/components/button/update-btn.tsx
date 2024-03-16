@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, useMemo, useRef, useState } from 'react';
 import {
   Box,
   Button,
@@ -7,30 +7,30 @@ import {
   DialogContent,
   DialogActions,
   Grid,
-  TextField,
+  TextField
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { useStore } from '@models/store';
+import { useCommand, useStore } from '@models/store';
 
 const UpdateButton = () => {
   const [open, setOpen] = useState(false);
   const { id } = useParams();
+
   const [image, setImage] = useState<File | null>(null);
-  const [state, dispatch] = useStore((store) => store.products);
+  const [state, dispatch] = useStore((store) => store.books);
+  const command = useCommand((cmd) => cmd);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const product = useMemo(
-    () => state?.products?.find((o) => o.id.toString() === id),
+    () => state?.books?.find((o) => o.id.toString() === id),
     [state, id]
   );
 
+  const [updatedBook, setUpdatedBook] = useState(product);
+
   const handleOpen = () => {
     setOpen(!open);
-  };
-
-  const handleAddBook = () => {
-    //logic untuk add book
-    handleOpen();
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +44,10 @@ const UpdateButton = () => {
     fileInputRef.current?.click();
   };
 
+  const handleSubmit = () => {
+    dispatch(command.books.update(updatedBook!));
+  };
+
   return (
     <>
       <Box>
@@ -54,7 +58,7 @@ const UpdateButton = () => {
 
       <Dialog open={open} onClose={handleOpen}>
         <DialogTitle>Update Book</DialogTitle>
-        <DialogContent sx={{ width: {sm: '500px'} }}>
+        <DialogContent sx={{ width: { sm: '500px' } }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Grid item xs={12} style={{ marginBottom: '1rem' }}>
@@ -125,15 +129,14 @@ const UpdateButton = () => {
                 <Button
                   onClick={handleOpen}
                   color="secondary"
-                  variant="contained"
-                >
+                  variant="contained">
                   Cancel
                 </Button>
                 <Button
-                  onClick={handleAddBook}
+                  type="submit"
+                  onSubmit={handleSubmit}
                   color="primary"
-                  variant="contained"
-                >
+                  variant="contained">
                   Update
                 </Button>
               </DialogActions>

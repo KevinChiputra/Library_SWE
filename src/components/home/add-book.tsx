@@ -10,11 +10,17 @@ import {
   Grid,
   TextField
 } from '@mui/material';
+import { useCommand, useStore } from '@models/store';
+import { Book } from '@models/books/types';
 
 const AddBook = () => {
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [state, dispatch] = useStore((store) => store.books);
+  const command = useCommand((cmd) => cmd);
+  const [additionalBook, setAdditionalBook] = useState<Book>();
 
   const handleOpen = () => {
     setOpen(true);
@@ -22,11 +28,6 @@ const AddBook = () => {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleAddBook = () => {
-    // Logic untuk add book
-    handleClose();
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +39,11 @@ const AddBook = () => {
 
   const handleUploadButtonClick = () => {
     fileInputRef.current?.click();
+  };
+
+  const handleSubmit = () => {
+    dispatch(command.books.add(additionalBook!));
+    handleClose();
   };
 
   return (
@@ -115,7 +121,11 @@ const AddBook = () => {
           <Button color="secondary" variant="contained" onClick={handleClose}>
             Cancel
           </Button>
-          <Button color="primary" variant="contained" onClick={handleAddBook}>
+          <Button
+            color="primary"
+            variant="contained"
+            type="submit"
+            onSubmit={handleSubmit}>
             Add
           </Button>
         </DialogActions>

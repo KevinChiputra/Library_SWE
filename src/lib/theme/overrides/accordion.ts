@@ -11,7 +11,9 @@ export const Accordion = () => {
     MuiAccordion: {
       styleOverrides: {
         root: ({ theme }: OwnerStateThemeType) => ({
-          ...skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` },
+          ...(skin === 'bordered' && {
+            border: `1px solid ${theme.palette.divider}`
+          }),
           borderRadius: theme.shape.borderRadius,
           boxShadow: theme.shadows[skin === 'bordered' ? 0 : 2],
           margin: theme.spacing(2, 0),
@@ -58,7 +60,7 @@ export const Accordion = () => {
           padding: `0 ${theme.spacing(4.5)}`,
 
           '& + .MuiCollapse-root': {
-            '& .MuiAccordionDetails-root:first-child': {
+            '& .MuiAccordionDetails-root:first-of-type': {
               paddingTop: 0
             }
           },

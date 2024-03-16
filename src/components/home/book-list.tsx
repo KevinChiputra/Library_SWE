@@ -1,5 +1,5 @@
 /* eslint-disable sort-keys */
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import {
   Button,
@@ -11,120 +11,7 @@ import {
 } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 
-import Book1 from '@src/image';
-
-interface Book {
-  description: string;
-  image: string;
-  price: number;
-  title: string;
-}
-
-const books: Book[] = [
-  {
-    title: 'HarryPotter',
-    description:
-      'Buku HarryPotter ga ngerti ceritanya gimana, pokok tentang sulap',
-    price: 500000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  },
-  {
-    title: 'Another Book',
-    description: 'Description of another book',
-    price: 200000,
-    image: Book1
-  }
-];
+import { useCommand, useStore } from '@models/store';
 
 const itemsPerPage = 6; // Jumlah item per halaman
 
@@ -140,16 +27,30 @@ const BookList: React.FC = () => {
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
+  const [state, dispatch] = useStore((store) => store.books);
+  const command = useCommand((cmd) => cmd);
+  const books = useMemo(() => state?.books, [state]);
+
+  useEffect(() => {
+    dispatch(command.books.load()).catch((err: unknown) => {
+      console.error(err);
+    });
+
+    return () => {
+      dispatch(command.books.clear());
+    };
+  }, []);
+
   return (
     <div style={{ marginTop: '12px' }}>
       <Grid container={true} spacing={3}>
-        {books.slice(startIndex, endIndex).map((book, index) => (
+        {books?.slice(startIndex, endIndex).map((book, index) => (
           <Grid item={true} key={index} md={4} sm={6} xs={12}>
             <Card style={{ height: '  100%' }}>
               <CardMedia
                 alt="pic"
                 component="img"
-                image={book.image}
+                image={book.cover_image}
                 sx={{ height: '9.375rem' }}
                 title="Picture"
               />
@@ -161,7 +62,9 @@ const BookList: React.FC = () => {
                 <Typography sx={{ mb: 2 }} variant="h5">
                   {book.title}
                 </Typography>
-                <Typography sx={{ mb: 2 }}>Rp{book.price}</Typography>
+                <Typography sx={{ mb: 2 }}>
+                  Rp {book.publication_year}
+                </Typography>
                 <Typography sx={{ color: 'text.secondary' }}>
                   {book.description}
                 </Typography>
@@ -189,7 +92,7 @@ const BookList: React.FC = () => {
         }}>
         <Pagination
           color="primary"
-          count={Math.ceil(books.length / itemsPerPage)} // Jumlah halaman dihitung berdasarkan jumlah total buku dan item per halaman
+          count={Math.ceil((books ? books.length : 0) / itemsPerPage)} // Jumlah halaman dihitung berdasarkan jumlah total buku dan item per halaman
           page={page}
           onChange={handlePageChange}
         />
