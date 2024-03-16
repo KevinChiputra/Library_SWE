@@ -54,7 +54,7 @@ const UpdateButton = () => {
 
       <Dialog open={open} onClose={handleOpen}>
         <DialogTitle>Update Book</DialogTitle>
-        <DialogContent sx={{ width: '500px' }}>
+        <DialogContent sx={{ width: {sm: '500px'} }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Grid item xs={12} style={{ marginBottom: '1rem' }}>
