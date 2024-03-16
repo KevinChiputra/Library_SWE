@@ -111,6 +111,4 @@ const Home: PageComponent = () => {
   );
 };
 
-Home.displayName = 'Home';
-
-export default Home;
+export default index;
