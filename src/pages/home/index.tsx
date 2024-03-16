@@ -10,6 +10,7 @@ import {
   Grid,
   Typography
 } from '@components/material.js';
+import type { Book } from '@models/books/types';
 import { useCommand, useStore } from '@models/store';
 
 const Home: PageComponent = () => {
@@ -18,13 +19,23 @@ const Home: PageComponent = () => {
   const books = useMemo(() => state?.books, [state]);
 
   const book = {
-    author: 'Book Tambahan',
-    cover_image: 'string',
-    description: 'string',
+    author: 'Book"s Author',
+    cover_image: 'Book"s Cover Image URL',
+    description: 'Book"s Description',
     genre: [''],
     id: 1000,
     publication_year: 1,
-    title: 'Book Tambahan'
+    title: 'Additional Book'
+  };
+
+  const updatedBook = {
+    author: 'Updated Book"s Author',
+    cover_image: 'Updated Book"s Cover Image URL',
+    description: 'Updated Book"s Description',
+    genre: [''],
+    id: 1000,
+    publication_year: 1,
+    title: 'Additional Updated Book'
   };
 
   useEffect(() => {
@@ -55,21 +66,44 @@ const Home: PageComponent = () => {
     dispatch(command.books.remove(book));
   };
 
+  const updateBook = (updatedBook: Book) => {
+    // * EXAMPLE USAGE OF "UPDATE" COMMANDS
+    for (const book of books || []) {
+      if (
+        book.id === updatedBook.id // Nanti bisa direplace sama id book yang mau diupdate
+      ) {
+        dispatch(command.books.update(updatedBook));
+      }
+    }
+  };
+
   return (
     <Grid container={true} spacing={6}>
       <Grid item={true} xs={12}>
         <Card>
           <CardHeader title="Kick start your project 🚀" />
           <CardContent>
+            <Typography>
+              Please make sure to read our Template Documentation to understand
+              where to go from here and how to use our template.
+            </Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item={true} xs={12}>
+        <Card>
+          <CardContent>
             {books?.map((book) => (
               <p key={book.id}>{book.title}</p>
             ))}
             <Button onClick={addBook}>Add Book</Button>
             <Button onClick={removeBook}>Remove Book</Button>
-            <Typography>
-              Please make sure to read our Template Documentation to understand
-              where to go from here and how to use our template.
-            </Typography>
+            <Button
+              onClick={() => {
+                updateBook(updatedBook);
+              }}>
+              Update Book
+            </Button>
           </CardContent>
         </Card>
       </Grid>

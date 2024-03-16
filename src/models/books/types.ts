@@ -44,7 +44,7 @@ type BooksAction =
     }
   | {
       type: BooksActionType.UPDATE;
-      value?: BooksModel;
+      value?: Book;
     };
 
 export { BooksActionType };

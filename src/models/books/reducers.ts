@@ -1,6 +1,6 @@
 import { BooksActionType } from './types.js';
 
-import type { BooksAction, BooksModel } from './types.js';
+import type { Book, BooksAction, BooksModel } from './types.js';
 
 const booksReducer = (
   state: BooksModel = {},
@@ -26,8 +26,24 @@ const booksReducer = (
       }
 
       return state;
-    case BooksActionType.UPDATE:
-      return { ...state, ...action.value };
+    case BooksActionType.UPDATE: {
+      let restBooks = state.books?.filter(
+        (book) => book.id !== action.value?.id
+      );
+
+      restBooks = restBooks as Book[];
+
+      // console.log('state', { ...state.books });
+      // console.log('restBooks', { ...restBooks });
+      // console.log('action.value', { ...action.value });
+
+      if (state.books && action.value) {
+        return { ...state, books: [...restBooks, action.value] };
+        // ? return { ...state.books, ...action.value };
+      }
+
+      return state;
+    }
     case BooksActionType.CLEAR:
       return {};
 

@@ -62,10 +62,10 @@ const booksCommand = {
       value: book
     };
   },
-  update: (value: BooksModel): BooksAction => {
+  update: (book: Book): BooksAction => {
     return {
       type: BooksActionType.UPDATE,
-      value
+      value: book
     };
   }
 } satisfies Command<RootModel, BooksAction>;
