@@ -10,7 +10,7 @@ import type { ProductsAction, ProductsModel } from './types.js';
 const productsCommand = {
   clear: (): ProductsAction => {
     return {
-      type: ProductsActionType.Clear,
+      type: ProductsActionType.Clear
     };
   },
   load: (options?: Readonly<FetchURLOptions>) => {
@@ -20,19 +20,19 @@ const productsCommand = {
 
         if (res) {
           const value: ProductsModel = {
-            products: res,
+            products: res
           };
 
           dispatch({
             type: ProductsActionType.Load,
-            value,
+            value
           });
         }
       } catch (err) {
         console.error(err);
       }
     };
-  },
+  }
 } satisfies Command<RootModel, ProductsAction>;
 
 export { productsCommand };

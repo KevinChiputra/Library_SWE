@@ -1,13 +1,10 @@
 import React from 'react';
 
-import BookList from '@components/home/bookList';
-import SearchBar from '@components/home/searchBar';
+import BookList from '@components/home/book-list';
 import Header from '@components/home/header';
-const index: React.FC = () => {
-  const handleSearch = (searchTerm: string) => {
-    console.log('Searching for: ', searchTerm);
-  };
+import SearchBar from '@components/home/search-bar';
 
+const index: React.FC = () => {
   return (
     <div>
       <SearchBar />

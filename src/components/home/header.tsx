@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Toolbar } from '@mui/material';
 
 const Header: React.FC = () => {
@@ -10,4 +11,5 @@ const Header: React.FC = () => {
   );
 };
 
+Header.displayName = 'Header';
 export default Header;

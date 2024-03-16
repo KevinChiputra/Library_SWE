@@ -16,7 +16,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  useTheme,
+  useTheme
 } from '@components/material.js';
 import { useCommand, useStore } from '@models/store.js';
 
@@ -73,12 +73,11 @@ const Products: PageComponent = () => {
                 key={row.id}
                 sx={{
                   '&:last-child td, &:last-child th': {
-                    border: 0,
+                    border: 0
                   },
                   backgroundColor:
-                    id === row.id ? theme.palette.divider : 'inherit',
-                }}
-              >
+                    id === row.id ? theme.palette.divider : 'inherit'
+                }}>
                 <TableCell component="th" scope="row">
                   {row.id}
                 </TableCell>
@@ -98,8 +97,7 @@ const Products: PageComponent = () => {
         anchorEl={anchorEl}
         id="basic-menu"
         open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
+        onClose={handleClose}>
         <MenuItem onClick={handleDetail}>Detail</MenuItem>
         <MenuItem>Delete</MenuItem>
       </Menu>

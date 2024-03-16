@@ -1,15 +1,17 @@
-import React, { ChangeEvent, useState, useRef } from 'react';
+import type { ChangeEvent } from 'react';
+import { useRef, useState } from 'react';
+
 import {
   Button,
   Dialog,
-  DialogTitle,
-  DialogContent,
   DialogActions,
+  DialogContent,
+  DialogTitle,
   Grid,
-  TextField,
+  TextField
 } from '@mui/material';
 
-const AddButton = () => {
+const AddBook = () => {
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -23,7 +25,7 @@ const AddButton = () => {
   };
 
   const handleAddBook = () => {
-    //logic untuk add book
+    // Logic untuk add book
     handleClose();
   };
 
@@ -39,62 +41,67 @@ const AddButton = () => {
   };
 
   return (
-    <div style={{ width: '115px' }}>
+    <div>
       <Button variant="contained" onClick={handleOpen}>
         Add Book
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add New Book</DialogTitle>
-        <DialogContent sx={{ width: '500px' }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Grid item xs={12} style={{ marginBottom: '1rem' }}>
+        <DialogContent
+          sx={{
+            width: {
+              sm: '500px'
+            }
+          }}>
+          <Grid container={true} spacing={2}>
+            <Grid item={true} xs={12}>
+              <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
                 <TextField
-                  fullWidth
+                  fullWidth={true}
                   label="Author"
-                  variant="outlined"
                   placeholder="Author"
+                  variant="outlined"
                 />
               </Grid>
-              <Grid item xs={12} style={{ marginBottom: '1rem' }}>
+              <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
                 <TextField
-                  fullWidth
+                  fullWidth={true}
                   label="Publication Year"
-                  variant="outlined"
                   placeholder="Publication Year"
+                  variant="outlined"
                 />
               </Grid>
-              <Grid item xs={12} style={{ marginBottom: '1rem' }}>
+              <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
                 <TextField
-                  fullWidth
+                  fullWidth={true}
                   label="Title"
-                  variant="outlined"
                   placeholder="Title"
+                  variant="outlined"
                 />
               </Grid>
-              <Grid item xs={12} style={{ marginBottom: '1rem' }}>
+              <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
                 <TextField
-                  fullWidth
+                  fullWidth={true}
                   label="Genre"
-                  variant="outlined"
                   placeholder="Genre"
-                />
-              </Grid>
-              <Grid item xs={12} style={{ marginBottom: '1rem' }}>
-                <TextField
-                  fullWidth
-                  label="Description"
                   variant="outlined"
-                  placeholder="Description"
                 />
               </Grid>
-              <Grid item xs={12} style={{ marginBottom: '1rem' }}>
+              <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
+                <TextField
+                  fullWidth={true}
+                  label="Description"
+                  placeholder="Description"
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
                 <input
                   accept="image/*"
                   id="contained-button-file"
-                  type="file"
-                  style={{ display: 'none' }}
                   ref={fileInputRef}
+                  style={{ display: 'none' }}
+                  type="file"
                   onChange={handleImageChange}
                 />
                 <Button variant="contained" onClick={handleUploadButtonClick}>
@@ -105,10 +112,10 @@ const AddButton = () => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary" variant="contained">
+          <Button color="secondary" variant="contained" onClick={handleClose}>
             Cancel
           </Button>
-          <Button onClick={handleAddBook} color="primary" variant="contained">
+          <Button color="primary" variant="contained" onClick={handleAddBook}>
             Add
           </Button>
         </DialogActions>
@@ -117,4 +124,6 @@ const AddButton = () => {
   );
 };
 
-export default AddButton;
+AddBook.displayName = 'FormAddBook';
+
+export default AddBook;

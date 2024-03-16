@@ -1,11 +1,11 @@
 interface Product {
-  id: number;
-  title: string;
   author: string;
-  publication_year: number;
-  genre: string[];
-  description: string;
   cover_image: string;
+  description: string;
+  genre: string[];
+  id: number;
+  publication_year: number;
+  title: string;
 }
 
 // Page Model
@@ -15,7 +15,7 @@ interface ProductsModel {
 
 enum ProductsActionType {
   Load = 'products-load',
-  Clear = 'products-clear',
+  Clear = 'products-clear'
 }
 
 type ProductsAction =

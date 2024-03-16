@@ -13,7 +13,7 @@ export const apiURL = (
       ...options,
       get baseURL() {
         return options.baseURL ?? window.NX.env.apiURL;
-      },
+      }
     })
   );
 };
@@ -28,8 +28,8 @@ export const API = (
       return window.NX.env.apiURL;
     },
     headers: compact({
-      authorization: [type, token].filter(Boolean).join(' '),
-    }),
+      authorization: [type, token].filter(Boolean).join(' ')
+    })
   });
 
   return mocked ? apiMock(fetch) : fetch;
@@ -38,16 +38,18 @@ export const API = (
 export const testApiUrlBook = (
   endpoint: string,
   options: Readonly<FetchURLOptions> = {}
-) =>
-  createFetchURL(endpoint, {
+) => {
+  return createFetchURL(endpoint, {
     baseURL: window.NX?.env?.apiBook,
-    ...options,
+    ...options
   });
+};
 
-export const testAPIBook = () =>
-  createFetch({
+export const testAPIBook = () => {
+  return createFetch({
     baseURL: window.NX?.env?.apiBook,
     header: {
-      Authorization: 'Bearer random',
-    },
+      Authorization: 'Bearer random'
+    }
   });
+};

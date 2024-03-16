@@ -1,20 +1,23 @@
+/* eslint-disable sort-keys */
 import { useState } from 'react';
 
 import {
   Button,
   Card,
   CardContent,
-  Typography,
   CardMedia,
   Grid,
+  Typography
 } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 
+import Book1 from '@src/image';
+
 interface Book {
-  title: string;
   description: string;
-  price: number;
   image: string;
+  price: number;
+  title: string;
 }
 
 const books: Book[] = [
@@ -23,104 +26,104 @@ const books: Book[] = [
     description:
       'Buku HarryPotter ga ngerti ceritanya gimana, pokok tentang sulap',
     price: 500000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
+    image: Book1
   },
   {
     title: 'Another Book',
     description: 'Description of another book',
     price: 200000,
-    image: 'image/book1.png',
-  },
+    image: Book1
+  }
 ];
 
 const itemsPerPage = 6; // Jumlah item per halaman
@@ -139,18 +142,23 @@ const BookList: React.FC = () => {
 
   return (
     <div style={{ marginTop: '12px' }}>
-      <Grid container spacing={3}>
+      <Grid container={true} spacing={3}>
         {books.slice(startIndex, endIndex).map((book, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card style={{ height: '100%' }}>
-              <CardMedia sx={{ height: '9.375rem' }} image={book.image} />
+          <Grid item={true} key={index} md={4} sm={6} xs={12}>
+            <Card style={{ height: '  100%' }}>
+              <CardMedia
+                alt="pic"
+                component="img"
+                image={book.image}
+                sx={{ height: '9.375rem' }}
+                title="Picture"
+              />
               <CardContent
                 sx={{
                   p: (theme) => `${theme.spacing(3, 5.25, 4)} !important`,
-                  height: '10rem',
-                }}
-              >
-                <Typography variant="h5" sx={{ mb: 2 }}>
+                  height: '10rem'
+                }}>
+                <Typography sx={{ mb: 2 }} variant="h5">
                   {book.title}
                 </Typography>
                 <Typography sx={{ mb: 2 }}>Rp{book.price}</Typography>
@@ -159,14 +167,13 @@ const BookList: React.FC = () => {
                 </Typography>
               </CardContent>
               <Button
-                variant="contained"
                 sx={{
                   py: 2.5,
                   width: '100%',
                   borderTopLeftRadius: 0,
-                  borderTopRightRadius: 0,
+                  borderTopRightRadius: 0
                 }}
-              >
+                variant="contained">
                 Add To Cart
               </Button>
             </Card>
@@ -175,17 +182,21 @@ const BookList: React.FC = () => {
       </Grid>
       {/* Pagination */}
       <div
-        style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}
-      >
+        style={{
+          marginTop: '20px',
+          display: 'flex',
+          justifyContent: 'center'
+        }}>
         <Pagination
+          color="primary"
           count={Math.ceil(books.length / itemsPerPage)} // Jumlah halaman dihitung berdasarkan jumlah total buku dan item per halaman
           page={page}
           onChange={handlePageChange}
-          color="primary"
         />
       </div>
     </div>
   );
 };
 
+BookList.displayName = 'BookList';
 export default BookList;

@@ -13,23 +13,23 @@ export const products: FetchMockInitializer = (
       limit: 10,
       products: [
         {
-          id: 1,
           description: 'A good soccer ball for playing',
-          title: 'Soccer Ball',
+          id: 1,
+          title: 'Soccer Ball'
         },
         {
-          id: 2,
           description: 'A Basketball',
-          title: 'Basketball',
+          id: 2,
+          title: 'Basketball'
         },
         {
-          id: 3,
           description: 'Shoes that can make you fly',
-          title: 'Running Shoes',
-        },
+          id: 3,
+          title: 'Running Shoes'
+        }
       ],
       skip: 0,
-      total: 10,
-    },
+      total: 10
+    }
   });
 };
