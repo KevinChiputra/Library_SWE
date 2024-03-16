@@ -71,7 +71,7 @@ const Products: PageComponent = () => {
         component={Paper}
         sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
-        <Table sx={{ minWidth: 650 }}>
+        <Table sx={{ minWidth: 500 }}>
           <TableHead>
             <TableRow>
               <TableCell align="center" width={200}>
