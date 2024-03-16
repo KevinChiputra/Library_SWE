@@ -1,25 +1,26 @@
-import type { FetchURLOptions } from '@nxweb/core';
+import type { FetchURLOptions } from "@nxweb/core";
 
-import type { Product } from '@models/products/types.js';
+import type { Product } from "@models/products/types.js";
 
-import { API, apiURL } from '../base.js';
+import { testAPIBook, testApiUrlBook } from "../base.js";
+import { options } from "@config/theme.js";
 
 interface productsAPIResponse {
-  limit: number
-  products: Product[]
-  skip: number
-  total: number
+  limit: number;
+  products: Product[];
+  skip: number;
+  total: number;
 }
 
-export const endpoint = 'products';
+export const endpointBook = "/api/v1/books";
 
-export const getProducts = async (token: string, options?: Readonly<FetchURLOptions>) => {
-  const url = apiURL(endpoint, options);
-  const { data } = await API(
-    token /* +uncomment to mock: , undefined, true */
-  ).get(url.toString());
+export const getBooks = async (options?: Readonly<FetchURLOptions>) => {
+  const url = testApiUrlBook(endpointBook, options);
+  const { data } = await testAPIBook().get(url.toString());
+  const response = data as productsAPIResponse["products"]
 
-  const response = data as productsAPIResponse;
+  console.log("buku");
+  console.log(response);
 
-  return response.products;
+  return response;
 };

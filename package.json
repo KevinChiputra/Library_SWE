@@ -32,6 +32,7 @@
     "@casl/react": "^3.1.0",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.1",
+    "@iconify/react": "^4.1.1",
     "@mui/material": "^5.15.3",
     "@mui/utils": "^5.15.3",
     "@nxweb/auth": "3.6.0-rc.19",

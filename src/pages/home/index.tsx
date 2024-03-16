@@ -2,7 +2,11 @@ import type { PageComponent } from '@nxweb/react';
 
 import { Card, CardContent, CardHeader, Grid, Typography } from '@components/material.js';
 
+import { getBooks } from '@api/clients/products';
+
 const Home: PageComponent = () => {
+  getBooks();
+
   return (
     <Grid container={true} spacing={6}>
       <Grid item={true} xs={12}>
