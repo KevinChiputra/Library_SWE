@@ -1,5 +1,5 @@
-import type { MouseEvent } from 'react';
-import { useEffect, useState } from 'react';
+import type { MouseEvent, ReactEventHandler } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { DotsVertical } from '@nxweb/icons/tabler';
@@ -16,7 +16,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  useTheme
+  useTheme,
 } from '@components/material.js';
 import { useCommand, useStore } from '@models/store.js';
 import { Book } from '@models/books/types';
@@ -43,8 +43,8 @@ const Books: PageComponent = () => {
     setAnchorEl(null);
   };
 
-  const handleDetail = () => {
-    navigate(`/books/${id}`);
+  const handleDetail = (id: number) => {
+    navigate(`/products/${id}`);
   };
 
   useEffect(() => {
@@ -68,7 +68,8 @@ const Books: PageComponent = () => {
     indexOfLastProduct
   );
 
-  const handleDelete = (book: Book) => {
+  const handleDelete = (event: React.MouseEvent, book: Book) => {
+    event.stopPropagation();
     dispatch(command.books.remove(book));
   };
 
@@ -80,34 +81,34 @@ const Books: PageComponent = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          paddingBottom: '1rem'
-        }}>
+          paddingBottom: '1rem',
+        }}
+      >
         <Table sx={{ minWidth: 500 }}>
           <TableHead>
             <TableRow>
               <TableCell align="center" width={200}>
                 Image
               </TableCell>
-              <TableCell>ID</TableCell>
+              <TableCell align="center">Number</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Description</TableCell>
-              <TableCell align="center" width={40}>
-                Action
-              </TableCell>
               <TableCell>Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {currentbooks?.map((row) => (
+            {currentbooks?.map((row, index) => (
               <TableRow
                 key={row.id}
                 sx={{
                   '&:last-child td, &:last-child th': {
-                    border: 0
+                    border: 0,
                   },
                   backgroundColor:
-                    id === row.id ? theme.palette.divider : 'inherit'
-                }}>
+                    id === row.id ? theme.palette.divider : 'inherit',
+                }}
+                onClick={() => handleDetail(row.id)}
+              >
                 <TableCell component="th" scope="row">
                   <img
                     src={row.cover_image}
@@ -115,26 +116,21 @@ const Books: PageComponent = () => {
                     css={{ width: '100% ', borderRadius: '4px' }}
                   />
                 </TableCell>
-                <TableCell component="th" scope="row">
-                  {row.id}
+                <TableCell component="th" scope="row" align="center">
+                  {index + (currentPage - 1) * 10 + 1}
                 </TableCell>
                 <TableCell>{row.title}</TableCell>
                 <TableCell>{row.description}</TableCell>
-                <TableCell align="center">
-                  <IconButton onClick={(e) => handleClick(e, row.id)}>
-                    <DotsVertical />
-                  </IconButton>
-                </TableCell>
                 <TableCell align="center">
                   <DeleteIcon
                     sx={{
                       color: 'grey',
                       cursor: 'pointer',
                       '&:hover': {
-                        color: '#E3242B'
-                      }
+                        color: '#E3242B',
+                      },
                     }}
-                    onClick={() => handleDelete(row)}
+                    onClick={(event) => handleDelete(event, row)}
                   />
                 </TableCell>
               </TableRow>
@@ -149,14 +145,6 @@ const Books: PageComponent = () => {
           />
         )}
       </TableContainer>
-      <Menu
-        anchorEl={anchorEl}
-        id="basic-menu"
-        open={Boolean(anchorEl)}
-        onClose={handleClose}>
-        <MenuItem onClick={handleDetail}>Detail</MenuItem>
-        <MenuItem>Delete</MenuItem>
-      </Menu>
     </>
   );
 };
