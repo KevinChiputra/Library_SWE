@@ -27,12 +27,14 @@ root.render(
         layouts={layouts}
         resolvePages={true}
         routes={routes}
-        wrapper={App} />
+        wrapper={App}
+      />
 
       <Toast.Container
         closeOnClick={true}
         draggable={false}
-        pauseOnFocusLoss={false} />
+        pauseOnFocusLoss={false}
+      />
     </StoreProvider>
   </StrictMode>
 );
@@ -67,6 +69,6 @@ ServiceWorker.unregister();
 
 export default {
   env: {
-    apiBook: process.env.BOOK_URL,
+    apiBook: process.env.BOOK_URL
   }
 };

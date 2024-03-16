@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { Suspense } from 'react';
 import type { FC } from 'react';
 

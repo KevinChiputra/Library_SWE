@@ -16,7 +16,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  useTheme,
+  useTheme
 } from '@components/material.js';
 import { useCommand, useStore } from '@models/store.js';
 import Pagination from '@mui/material/Pagination';
@@ -48,7 +48,7 @@ const Products: PageComponent = () => {
     dispatch(command.products.load()).catch((err: unknown) => {
       console.error(err);
     });
-    console.log(state?.products);
+
     return () => {
       dispatch(command.products.clear());
     };
@@ -94,9 +94,8 @@ const Products: PageComponent = () => {
                     border: 0,
                   },
                   backgroundColor:
-                    id === row.id ? theme.palette.divider : 'inherit',
-                }}
-              >
+                    id === row.id ? theme.palette.divider : 'inherit'
+                }}>
                 <TableCell component="th" scope="row">
                   <img src={row.cover_image} alt="" css={{ width: '100% ', borderRadius: '4px' }} />
                 </TableCell>
@@ -126,8 +125,7 @@ const Products: PageComponent = () => {
         anchorEl={anchorEl}
         id="basic-menu"
         open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
+        onClose={handleClose}>
         <MenuItem onClick={handleDetail}>Detail</MenuItem>
         <MenuItem>Delete</MenuItem>
       </Menu>

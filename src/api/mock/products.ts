@@ -3,7 +3,9 @@ import { createMockURL } from '@nxweb/core';
 
 import { endpointBook } from '../clients/products.js';
 
-export const products: FetchMockInitializer = (adapter: Readonly<FetchMockAdapter>) => {
+export const products: FetchMockInitializer = (
+  adapter: Readonly<FetchMockAdapter>
+) => {
   const url = createMockURL(endpointBook, window.NX.env.apiURL);
 
   adapter.onPost(url).reply(200, {
@@ -11,18 +13,18 @@ export const products: FetchMockInitializer = (adapter: Readonly<FetchMockAdapte
       limit: 10,
       products: [
         {
-          id: 1,
           description: 'A good soccer ball for playing',
+          id: 1,
           title: 'Soccer Ball'
         },
         {
-          id: 2,
           description: 'A Basketball',
+          id: 2,
           title: 'Basketball'
         },
         {
-          id: 3,
           description: 'Shoes that can make you fly',
+          id: 3,
           title: 'Running Shoes'
         }
       ],
