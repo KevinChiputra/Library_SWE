@@ -3,11 +3,10 @@ import { useEffect, useMemo } from 'react';
 import type { PageComponent } from '@nxweb/react';
 import { Button } from '@nxweb/react-bootstrap';
 
-import { Card, CardContent, Grid } from '@components/material.js';
+import { Card, CardContent, Grid, Typography } from '@components/material.js';
 import type { Book } from '@models/books/types';
 import { useCommand, useStore } from '@models/store';
 
-import SearchBar from '@components/home/search-bar';
 import Header from '@components/home/header';
 import BookList from '@components/home/book-list';
 
@@ -72,16 +71,17 @@ const Home: PageComponent = () => {
 
   return (
     <div>
-      <SearchBar />
       <Header />
       <BookList />
+
+      {/* DUMMY */}
       <Grid container={true} spacing={6}>
         <Grid item={true} xs={12}>
           <Card>
             <CardContent>
-              {books?.map((book) => (
-                <p key={book.id}>{book.title}</p>
-              ))}
+              <Typography variant="h5">
+                Example of Add, Remove, and Update Book
+              </Typography>
               <Button onClick={addBook}>Add Book</Button>
               <Button onClick={removeBook}>Remove Book</Button>
               <Button
