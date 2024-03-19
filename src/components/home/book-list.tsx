@@ -21,7 +21,6 @@ const itemsPerPage = 6; // Jumlah item per halaman
 const BookList: React.FC = () => {
   const [page, setPage] = useState(1); // State untuk halaman aktif
   const [recommendedPage, setRecommendedPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState('');
 
   // Fungsi untuk menangani perubahan halaman pada books
   const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
@@ -108,10 +107,7 @@ const BookList: React.FC = () => {
     return books?.slice(0, 24) || [];
   }, [books]);
 
-  const displayedBooks = filteredBooksByGenre.length
-    ? filteredBooksByGenre
-    : filteredBooks;
-
+  console.log('ini books', books);
   return (
     <div style={{ marginTop: '12px' }}>
       {/* SEARCH BAR */}
@@ -122,7 +118,7 @@ const BookList: React.FC = () => {
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
-          justifyContent: 'flex-start',
+          justifyContent: 'space-between',
           marginY: '1rem',
         }}
       >
@@ -147,8 +143,8 @@ const BookList: React.FC = () => {
 
       {/* SHOW SEARCH ITEM */}
       <Grid container={true} spacing={3}>
-        {/* 
-          // ! Menampilkan pesan jika tidak ada buku yang ditemukan 
+        {/*
+          // ! Menampilkan pesan jika tidak ada buku yang ditemukan
         */}
         {filteredBooks?.length === 0 && (
           <Grid item={true}>
@@ -159,44 +155,46 @@ const BookList: React.FC = () => {
         )}
 
         {/* MAPPING BOOKS */}
-        {displayedBooks?.slice(startIndex, endIndex).map((book, index) => (
-          <Grid item={true} key={index} md={4} sm={6} xs={12}>
-            <Card style={{ height: '  100%' }}>
-              <CardMedia
-                alt="pic"
-                component="img"
-                image={book.cover_image}
-                sx={{ height: '9.375rem' }}
-                title="Picture"
-              />
-              <CardContent
-                sx={{
-                  p: (theme) => `${theme.spacing(3, 5.25, 4)} !important`,
-                  height: '10rem',
-                }}
-              >
-                <Typography sx={{ mb: 2 }} variant="h5">
-                  {book.title}
-                </Typography>
-                <Typography sx={{ mb: 2 }}>by : {book.author}</Typography>
-                <Typography sx={{ color: 'text.secondary' }}>
-                  {book.description}
-                </Typography>
-              </CardContent>
-              <Button
-                sx={{
-                  py: 2.5,
-                  width: '100%',
-                  borderTopLeftRadius: 0,
-                  borderTopRightRadius: 0,
-                }}
-                variant="contained"
-              >
-                Add To Cart
-              </Button>
-            </Card>
-          </Grid>
-        ))}
+        {(filteredBooks === undefined ? books : filteredBooks)
+          ?.slice(startIndex, endIndex)
+          .map((book, index) => (
+            <Grid item={true} key={index} md={4} sm={6} xs={12}>
+              <Card style={{ height: '  100%' }}>
+                <CardMedia
+                  alt="pic"
+                  component="img"
+                  image={book.cover_image}
+                  sx={{ height: '9.375rem' }}
+                  title="Picture"
+                />
+                <CardContent
+                  sx={{
+                    p: (theme) => `${theme.spacing(3, 5.25, 4)} !important`,
+                    height: '10rem',
+                  }}
+                >
+                  <Typography sx={{ mb: 2 }} variant="h5">
+                    {book.title}
+                  </Typography>
+                  <Typography sx={{ mb: 2 }}>by : {book.author}</Typography>
+                  <Typography sx={{ color: 'text.secondary' }}>
+                    {book.description}
+                  </Typography>
+                </CardContent>
+                <Button
+                  sx={{
+                    py: 2.5,
+                    width: '100%',
+                    borderTopLeftRadius: 0,
+                    borderTopRightRadius: 0,
+                  }}
+                  variant="contained"
+                >
+                  Add To Cart
+                </Button>
+              </Card>
+            </Grid>
+          ))}
       </Grid>
 
       {/* PAGINATION */}
@@ -208,27 +206,24 @@ const BookList: React.FC = () => {
           justifyContent: 'center',
         }}
       >
-        {/* Pagination for searched items */}
-        {filteredBooks.length > 0 && (
-          <Pagination
-            color="primary"
-            // Jumlah halaman dihitung berdasarkan jumlah total filteredBooks dan item per halaman
-            /*
-             * Jika filteredBooks tidak ditemukan, maka jumlah halaman dihitung berdasarkan jumlah total books
-             * Jika books tidak ditemukan, maka jumlah halaman dihitung berdasarkan 0
-             * Jika filteredBooks ditemukan, maka jumlah halaman dihitung berdasarkan jumlah total filteredBooks
-             */
-            count={Math.ceil(
-              (filteredBooks === undefined
-                ? books?.length!
-                : books === undefined
-                ? 0
-                : filteredBooks.length) / itemsPerPage
-            )}
-            page={page}
-            onChange={handlePageChange}
-          />
-        )}
+        <Pagination
+          color="primary"
+          // Jumlah halaman dihitung berdasarkan jumlah total filteredBooks dan item per halaman
+          /*
+           * Jika filteredBooks tidak ditemukan, maka jumlah halaman dihitung berdasarkan jumlah total books
+           * Jika books tidak ditemukan, maka jumlah halaman dihitung berdasarkan 0
+           * Jika filteredBooks ditemukan, maka jumlah halaman dihitung berdasarkan jumlah total filteredBooks
+           */
+          count={Math.ceil(
+            (filteredBooks === undefined
+              ? books?.length!
+              : books === undefined
+              ? 0
+              : filteredBooks.length) / itemsPerPage
+          )}
+          page={page}
+          onChange={handlePageChange}
+        />
       </div>
 
       {/* SHOW RECOMMENDED BOOKS */}

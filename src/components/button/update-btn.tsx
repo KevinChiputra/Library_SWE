@@ -1,4 +1,4 @@
-import { ChangeEvent, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Box,
   Button,
@@ -7,14 +7,17 @@ import {
   DialogContent,
   DialogActions,
   Grid,
-  TextField
+  TextField,
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useCommand, useStore } from '@models/store';
+import axios from 'axios';
+import { Book } from '@models/books/types';
 
 const UpdateButton = () => {
   const [open, setOpen] = useState(false);
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+  const parsedId = id ? parseInt(id) : 0;
 
   const [image, setImage] = useState<File | null>(null);
   const [state, dispatch] = useStore((store) => store.books);
@@ -27,7 +30,21 @@ const UpdateButton = () => {
     [state, id]
   );
 
-  const [updatedBook, setUpdatedBook] = useState(product);
+  const [value, setValue] = useState<Book>({
+    title: '',
+    author: '',
+    cover_image: '',
+    description: '',
+    genre: [''],
+    id: 0,
+    publication_year: '',
+  });
+
+  useEffect(() => {
+    if (product) {
+      setValue(product);
+    }
+  }, [product]);
 
   const handleOpen = () => {
     setOpen(!open);
@@ -44,8 +61,14 @@ const UpdateButton = () => {
     fileInputRef.current?.click();
   };
 
+  const handleChangeGenre = (index: number, newValue: string) => {
+    const newGenre: string[] = [...value.genre]; // Make a copy of the genre array
+    newGenre[index] = newValue; // Update the value at the specified index
+    setValue({ ...value, genre: newGenre }); // Update the state with the new genre array
+  };
+
   const handleSubmit = () => {
-    dispatch(command.books.update(updatedBook!));
+    dispatch(command.books.update(value));
   };
 
   return (
@@ -67,19 +90,25 @@ const UpdateButton = () => {
                   label="Title"
                   variant="outlined"
                   placeholder="Title"
-                  defaultValue={product?.title}
+                  value={value.title}
+                  onChange={(e) =>
+                    setValue({ ...value, title: e.target.value })
+                  }
                 />
               </Grid>
 
-              <Grid item xs={12} style={{ marginBottom: '1rem' }}>
-                <TextField
-                  fullWidth
-                  label="Genre"
-                  variant="outlined"
-                  placeholder="Genre"
-                  defaultValue={product?.genre}
-                />
-              </Grid>
+              {value.genre.map((genreItem, index) => (
+                <Grid item xs={12} style={{ marginBottom: '1rem' }} key={index}>
+                  <TextField
+                    fullWidth
+                    label={`Genre ${index + 1}`}
+                    variant="outlined"
+                    placeholder={`Genre ${index + 1}`}
+                    value={genreItem}
+                    onChange={(e) => handleChangeGenre(index, e.target.value)}
+                  />
+                </Grid>
+              ))}
 
               <Grid item xs={12} style={{ marginBottom: '1rem' }}>
                 <TextField
@@ -87,7 +116,10 @@ const UpdateButton = () => {
                   label="Author"
                   variant="outlined"
                   placeholder="Author"
-                  defaultValue={product?.author}
+                  value={value.author}
+                  onChange={(e) =>
+                    setValue({ ...value, author: e.target.value })
+                  }
                 />
               </Grid>
 
@@ -97,7 +129,10 @@ const UpdateButton = () => {
                   label="Description"
                   variant="outlined"
                   placeholder="Description"
-                  defaultValue={product?.description}
+                  value={value.description}
+                  onChange={(e) =>
+                    setValue({ ...value, description: e.target.value })
+                  }
                 />
               </Grid>
 
@@ -107,7 +142,10 @@ const UpdateButton = () => {
                   label="Publication Year"
                   variant="outlined"
                   placeholder="Publication Year"
-                  defaultValue={product?.publication_year}
+                  value={value.publication_year}
+                  onChange={(e) =>
+                    setValue({ ...value, publication_year: e.target.value })
+                  }
                 />
               </Grid>
 
@@ -129,14 +167,19 @@ const UpdateButton = () => {
                 <Button
                   onClick={handleOpen}
                   color="secondary"
-                  variant="contained">
+                  variant="contained"
+                >
                   Cancel
                 </Button>
                 <Button
                   type="submit"
-                  onSubmit={handleSubmit}
                   color="primary"
-                  variant="contained">
+                  variant="contained"
+                  onClick={() => {
+                    handleSubmit(),
+                    handleOpen()
+                  }}
+                >
                   Update
                 </Button>
               </DialogActions>
