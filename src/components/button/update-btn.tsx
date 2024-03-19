@@ -52,8 +52,17 @@ const UpdateButton = () => {
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file !== undefined && file !== null) {
-      setImage(file);
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const imageDataUrl = reader.result as string;
+        setValue({ ...value, cover_image: imageDataUrl });
+        localStorage.setItem('recent-image', imageDataUrl);
+        console.log('imageDataURL', imageDataUrl);
+      };
+
+      reader.readAsDataURL(file); // Membaca file sebagai URL data
     }
   };
 
@@ -71,6 +80,7 @@ const UpdateButton = () => {
     dispatch(command.books.update(value));
   };
 
+  console.log('image:', image);
   return (
     <>
       <Box>
@@ -176,8 +186,7 @@ const UpdateButton = () => {
                   color="primary"
                   variant="contained"
                   onClick={() => {
-                    handleSubmit(),
-                    handleOpen()
+                    handleSubmit(), handleOpen();
                   }}
                 >
                   Update

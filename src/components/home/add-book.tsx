@@ -52,7 +52,15 @@ const AddBook = () => {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file !== undefined && file !== null) {
-      setImage(file);
+      const reader = new FileReader()
+
+      reader.onload = () => {
+        const urlImgData = reader.result as string
+        setAdditionalBook({...additionalBook, cover_image: urlImgData})
+        localStorage.setItem('new-image-book', urlImgData)
+      }
+
+      reader.readAsDataURL(file)
     }
   };
 
@@ -72,7 +80,7 @@ const AddBook = () => {
     const newBook: Book = { ...additionalBook, id: lastIndex };
     dispatch(command.books.add(newBook));
 
-    
+
     handleClose();
   };
 
