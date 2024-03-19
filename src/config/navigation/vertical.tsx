@@ -4,7 +4,7 @@ import {
   Lock,
   Mail,
   Shield,
-  SmartHome,
+  SmartHome
 } from '@nxweb/icons/tabler';
 
 import type { VerticalNavItemsType } from '@layouts/types.js';
@@ -14,14 +14,14 @@ export const navigation: readonly VerticalNavItemsType[] = [
     icon: <SmartHome />,
     id: 'home',
     link: '/home',
-    text: 'Home',
+    text: 'Home'
   },
   {
     icon: <Mail />,
-    id: 'products',
-    link: '/products',
-    text: 'Products',
-  },
+    id: 'books',
+    link: '/books',
+    text: 'Books'
+  }
   // {
   //   action: 'read',
   //   icon: <Shield />,
