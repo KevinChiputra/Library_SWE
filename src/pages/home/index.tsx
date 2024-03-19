@@ -9,6 +9,7 @@ import { useCommand, useStore } from '@models/store';
 
 import Header from '@components/home/header';
 import BookList from '@components/home/book-list';
+import Carousell from '@components/home/carousell';
 
 const Home: PageComponent = () => {
   const [state, dispatch] = useStore((store) => store.books);
@@ -22,7 +23,7 @@ const Home: PageComponent = () => {
     genre: [''],
     id: 1000,
     publication_year: 1,
-    title: 'Additional Book'
+    title: 'Additional Book',
   };
 
   const updatedBook = {
@@ -32,7 +33,7 @@ const Home: PageComponent = () => {
     genre: [''],
     id: 1000,
     publication_year: 1,
-    title: 'Additional Updated Book'
+    title: 'Additional Updated Book',
   };
 
   useEffect(() => {
@@ -72,6 +73,7 @@ const Home: PageComponent = () => {
   return (
     <div>
       <Header />
+      <Carousell direction={'ltr'} />
       <BookList />
 
       {/* DUMMY */}
@@ -87,7 +89,8 @@ const Home: PageComponent = () => {
               <Button
                 onClick={() => {
                   updateBook(updatedBook);
-                }}>
+                }}
+              >
                 Update Book
               </Button>
             </CardContent>

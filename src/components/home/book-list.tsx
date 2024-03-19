@@ -107,7 +107,6 @@ const BookList: React.FC = () => {
     return books?.slice(0, 24) || [];
   }, [books]);
 
-  console.log('ini books', books);
   return (
     <div style={{ marginTop: '12px' }}>
       {/* SEARCH BAR */}
