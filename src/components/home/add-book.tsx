@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import {
   Button,
@@ -8,10 +8,11 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  TextField
+  TextField,
 } from '@mui/material';
 import { useCommand, useStore } from '@models/store';
 import { Book } from '@models/books/types';
+import { setValue } from '@nxweb/core';
 
 const AddBook = () => {
   const [open, setOpen] = useState(false);
@@ -20,7 +21,25 @@ const AddBook = () => {
 
   const [state, dispatch] = useStore((store) => store.books);
   const command = useCommand((cmd) => cmd);
-  const [additionalBook, setAdditionalBook] = useState<Book>();
+
+  const [additionalBook, setAdditionalBook] = useState<Book>({
+    author: '',
+    cover_image: 'https://fakeimg.pl/667x1000/cc6600',
+    description: '',
+    genre: [],
+    id: 0,
+    publication_year: '',
+    title: '',
+  });
+
+  // INI UNTUK MENDAPATKAN INDEX TERAKHIR DARI OBJECT
+  const [lastIndex, setLastIndex] = useState(0);
+
+  useEffect(() => {
+    if (state && state.books) {
+      setLastIndex(state.books.length + 1);
+    }
+  }, [state]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -41,11 +60,23 @@ const AddBook = () => {
     fileInputRef.current?.click();
   };
 
+  const handleGenre = (input: string) => {
+    const newGenreToAdd = input.split(' ').filter(Boolean);
+    setAdditionalBook({
+      ...additionalBook,
+      genre: { ...additionalBook.genre, ...newGenreToAdd },
+    });
+  };
+
   const handleSubmit = () => {
-    dispatch(command.books.add(additionalBook!));
+    const newBook: Book = { ...additionalBook, id: lastIndex };
+    dispatch(command.books.add(newBook));
+
+    
     handleClose();
   };
 
+  console.log(additionalBook);
   return (
     <div>
       <Button variant="contained" onClick={handleOpen}>
@@ -56,9 +87,10 @@ const AddBook = () => {
         <DialogContent
           sx={{
             width: {
-              sm: '500px'
-            }
-          }}>
+              sm: '500px',
+            },
+          }}
+        >
           <Grid container={true} spacing={2}>
             <Grid item={true} xs={12}>
               <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
@@ -67,6 +99,12 @@ const AddBook = () => {
                   label="Author"
                   placeholder="Author"
                   variant="outlined"
+                  onChange={(e) =>
+                    setAdditionalBook({
+                      ...additionalBook,
+                      author: e.target.value,
+                    })
+                  }
                 />
               </Grid>
               <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
@@ -75,6 +113,12 @@ const AddBook = () => {
                   label="Publication Year"
                   placeholder="Publication Year"
                   variant="outlined"
+                  onChange={(e) =>
+                    setAdditionalBook({
+                      ...additionalBook,
+                      publication_year: e.target.value,
+                    })
+                  }
                 />
               </Grid>
               <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
@@ -83,6 +127,12 @@ const AddBook = () => {
                   label="Title"
                   placeholder="Title"
                   variant="outlined"
+                  onChange={(e) =>
+                    setAdditionalBook({
+                      ...additionalBook,
+                      title: e.target.value,
+                    })
+                  }
                 />
               </Grid>
               <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
@@ -91,6 +141,7 @@ const AddBook = () => {
                   label="Genre"
                   placeholder="Genre"
                   variant="outlined"
+                  onChange={(e) => handleGenre(e.target.value)}
                 />
               </Grid>
               <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
@@ -99,6 +150,12 @@ const AddBook = () => {
                   label="Description"
                   placeholder="Description"
                   variant="outlined"
+                  onChange={(e) =>
+                    setAdditionalBook({
+                      ...additionalBook,
+                      description: e.target.value,
+                    })
+                  }
                 />
               </Grid>
               <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
@@ -125,7 +182,8 @@ const AddBook = () => {
             color="primary"
             variant="contained"
             type="submit"
-            onSubmit={handleSubmit}>
+            onClick={handleSubmit}
+          >
             Add
           </Button>
         </DialogActions>

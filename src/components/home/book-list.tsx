@@ -7,7 +7,7 @@ import {
   CardMedia,
   Grid,
   Stack,
-  Typography
+  Typography,
 } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import SearchIcon from '@mui/icons-material/Search';
@@ -64,6 +64,7 @@ const BookList: React.FC = () => {
     };
   }, []);
 
+  console.log('ini books', books);
   return (
     <div style={{ marginTop: '12px' }}>
       {/* SEARCH BAR */}
@@ -75,8 +76,9 @@ const BookList: React.FC = () => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginY: '1rem'
-        }}>
+          marginY: '1rem',
+        }}
+      >
         <Search>
           <SearchIconWrapper>
             <SearchIcon />
@@ -92,8 +94,8 @@ const BookList: React.FC = () => {
 
       {/* BOOK LIST */}
       <Grid container={true} spacing={3}>
-        {/* 
-          // ! Menampilkan pesan jika tidak ada buku yang ditemukan 
+        {/*
+          // ! Menampilkan pesan jika tidak ada buku yang ditemukan
         */}
         {filteredBooks?.length === 0 && (
           <Grid item={true}>
@@ -119,8 +121,9 @@ const BookList: React.FC = () => {
                 <CardContent
                   sx={{
                     p: (theme) => `${theme.spacing(3, 5.25, 4)} !important`,
-                    height: '10rem'
-                  }}>
+                    height: '10rem',
+                  }}
+                >
                   <Typography sx={{ mb: 2 }} variant="h5">
                     {book.title}
                   </Typography>
@@ -134,9 +137,10 @@ const BookList: React.FC = () => {
                     py: 2.5,
                     width: '100%',
                     borderTopLeftRadius: 0,
-                    borderTopRightRadius: 0
+                    borderTopRightRadius: 0,
                   }}
-                  variant="contained">
+                  variant="contained"
+                >
                   Add To Cart
                 </Button>
               </Card>
@@ -150,8 +154,9 @@ const BookList: React.FC = () => {
           marginTop: '1em',
           marginBottom: '1em',
           display: 'flex',
-          justifyContent: 'center'
-        }}>
+          justifyContent: 'center',
+        }}
+      >
         <Pagination
           color="primary"
           // Jumlah halaman dihitung berdasarkan jumlah total filteredBooks dan item per halaman
