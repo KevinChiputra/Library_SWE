@@ -8,7 +8,7 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  TextField
+  TextField,
 } from '@mui/material';
 import { useCommand, useStore } from '@models/store';
 import { Book } from '@models/books/types';
@@ -48,7 +48,12 @@ const AddBook = () => {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen}>
+      <Button
+        variant="contained"
+        size="small"
+        sx={{ minWidth: 'unset', fontSize: '0.8rem' }}
+        onClick={handleOpen}
+      >
         Add Book
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -56,9 +61,10 @@ const AddBook = () => {
         <DialogContent
           sx={{
             width: {
-              sm: '500px'
-            }
-          }}>
+              sm: '500px',
+            },
+          }}
+        >
           <Grid container={true} spacing={2}>
             <Grid item={true} xs={12}>
               <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
@@ -125,7 +131,8 @@ const AddBook = () => {
             color="primary"
             variant="contained"
             type="submit"
-            onSubmit={handleSubmit}>
+            onSubmit={handleSubmit}
+          >
             Add
           </Button>
         </DialogActions>
