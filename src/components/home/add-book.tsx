@@ -87,7 +87,12 @@ const AddBook = () => {
   console.log(additionalBook);
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen}>
+      <Button
+        variant="contained"
+        size="small"
+        sx={{ minWidth: 'unset', fontSize: '0.8rem' }}
+        onClick={handleOpen}
+      >
         Add Book
       </Button>
       <Dialog open={open} onClose={handleClose}>

@@ -8,19 +8,32 @@ export const Search = styled('div')(({ theme }) => ({
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   border: '1px solid #ccc',
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.black, 0.02)
+    backgroundColor: alpha(theme.palette.common.black, 0.02),
   },
   marginRight: theme.spacing(1),
   // MarginLeft: 0,
   height: '35px',
   width: '100%',
+  [theme.breakpoints.up('xs')]: {
+    marginLeft: theme.spacing(3),
+    width: '50%',
+  },
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
-    width: '50%'
+    width: '70%',
+  },
+  [theme.breakpoints.up('md')]: {
+    width: '70%',
+  },
+  [theme.breakpoints.up('lg')]: {
+    width: '80%',
+  },
+  [theme.breakpoints.up('xl')]: {
+    width: '88%',
   },
   '@media (prefers-color-scheme: dark)': {
-    backgroundColor: alpha(theme.palette.common.white, 0.01)
-  }
+    backgroundColor: alpha(theme.palette.common.white, 0.01),
+  },
 }));
 
 export const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -30,7 +43,7 @@ export const SearchIconWrapper = styled('div')(({ theme }) => ({
   pointerEvents: 'none',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
 }));
 
 export const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -40,6 +53,6 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     padding: theme.spacing(1, 1, 1, 0),
     // Vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width')
-  }
+    transition: theme.transitions.create('width'),
+  },
 }));
