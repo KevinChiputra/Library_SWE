@@ -35,42 +35,45 @@ const Product: PageComponent = () => {
           display: 'flex',
           flexDirection: {
             xs: 'column',
-            sm: 'row'
+            sm: 'row',
           },
           alignItems: 'start',
-          gap: 4
-        }}>
+          gap: 4,
+        }}
+      >
         <Box
           sx={{
             width: {
               xs: '50%',
-              sm: '25%'
+              sm: '25%',
             },
             height: {
               xs: '50%',
-              sm: '100%'
-            }
-          }}>
+              sm: '100%',
+            },
+          }}
+        >
           <img
             src={book?.cover_image}
             alt="Foto Buku"
             css={{ width: '100%', borderRadius: '4px' }}
           />
         </Box>
-
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 4
-          }}>
+            gap: 4,
+          }}
+        >
           <h1
             css={{
               alignItems: 'start',
               display: 'flex',
               flexDirection: 'column',
-              gap: '2px'
-            }}>
+              gap: '2px',
+            }}
+          >
             {book?.title}
             <Box>
               <Chip label={book?.genre.join(', ') ?? '...'} />
@@ -81,7 +84,6 @@ const Product: PageComponent = () => {
           {/* Ini tombol buat update, tinggal tambahkan onClick */}
           <UpdateButton />
         </Box>
-
         {/* ini berisi isi dari data dalam .json */}
         {/* <pre>{book ? JSON.stringify(book, null, 2) : null}</pre> */}
       </Box>

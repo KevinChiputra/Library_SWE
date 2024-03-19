@@ -2,7 +2,6 @@ import type { MouseEvent, ReactEventHandler } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { DotsVertical } from '@nxweb/icons/tabler';
 import type { PageComponent } from '@nxweb/react';
 
 import {

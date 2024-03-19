@@ -42,7 +42,6 @@
     "@nxweb/icons": "3.6.0-rc.29",
     "@nxweb/react": "3.6.0-rc.10",
     "@nxweb/react-bootstrap": "3.6.0-rc.0",
-    "axios": "^1.6.8",
     "hoist-non-react-statics": "^3.3.2",
     "keen-slider": "^6.8.6",
     "react": "^18.2.0",

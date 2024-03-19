@@ -1,16 +1,20 @@
 import { useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import type { PageComponent } from '@nxweb/react';
 
-import { Box, Chip } from '@components/material.js';
+import { Box, Card, Chip } from '@components/material.js';
 import { useCommand, useStore } from '@models/store.js';
 import UpdateButton from '@components/button/update-btn';
+import { CardContent, CardMedia, Grid, Typography } from '@mui/material';
 
 const DetailBook: PageComponent = () => {
   const { id } = useParams();
   const [state, dispatch] = useStore((store) => store.books);
   const command = useCommand((cmd) => cmd);
+  const navigate = useNavigate()
+
+  const books = useMemo(() => state?.books, [state]);
 
   const book = useMemo(
     () => state?.books?.find((o) => o.id.toString() === id),
@@ -28,6 +32,15 @@ const DetailBook: PageComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const recommendationBook = useMemo(() => {
+    return books?.slice(-4) || [];
+  }, [books]);
+
+  const handleDetail = (id: number) => {
+    navigate(`/books/${id}`);
+  };
+
+  console.log(recommendationBook);
   return (
     <>
       <Box
@@ -35,22 +48,24 @@ const DetailBook: PageComponent = () => {
           display: 'flex',
           flexDirection: {
             xs: 'column',
-            sm: 'row'
+            sm: 'row',
           },
           alignItems: 'start',
-          gap: 4
-        }}>
+          gap: 4,
+        }}
+      >
         <Box
           sx={{
             width: {
               xs: '50%',
-              sm: '25%'
+              sm: '25%',
             },
             height: {
               xs: '50%',
-              sm: '100%'
-            }
-          }}>
+              sm: '100%',
+            },
+          }}
+        >
           <img
             src={book?.cover_image}
             alt="Foto Buku"
@@ -62,15 +77,17 @@ const DetailBook: PageComponent = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 4
-          }}>
+            gap: 4,
+          }}
+        >
           <h1
             css={{
               alignItems: 'start',
               display: 'flex',
               flexDirection: 'column',
-              gap: '2px'
-            }}>
+              gap: '2px',
+            }}
+          >
             {book?.title}
             <Box>
               <Chip label={book?.genre.join(', ') ?? '...'} />
@@ -81,9 +98,35 @@ const DetailBook: PageComponent = () => {
           {/* Ini tombol buat update, tinggal tambahkan onClick */}
           <UpdateButton />
         </Box>
-
         {/* ini berisi isi dari data dalam .json */}
         {/* <pre>{book ? JSON.stringify(book, null, 2) : null}</pre> */}
+      </Box>
+      <Box>
+        <h1>Recommendation Book</h1>
+        <Grid container spacing={4}>
+          {recommendationBook.map((book) => (
+            <Grid item sm={6} onClick={() => handleDetail(book.id)}>
+              <Card sx={{ width: '100%', height: '100%' }}>
+                <CardMedia
+                  alt="pic"
+                  component="img"
+                  image={book?.cover_image}
+                  sx={{ height: '9.375rem' }}
+                  title="Picture"
+                />
+                <CardContent>
+                  <Typography sx={{ mb: 2 }} variant="h5">
+                    {book?.title}
+                  </Typography>
+                  <Typography sx={{ mb: 2 }}>by : {book?.author}</Typography>
+                  <Typography sx={{ color: 'text.secondary' }}>
+                    {book?.description}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       </Box>
     </>
   );

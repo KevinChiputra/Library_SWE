@@ -7,19 +7,16 @@ import {
   DialogContent,
   DialogActions,
   Grid,
-  TextField,
+  TextField
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useCommand, useStore } from '@models/store';
-import axios from 'axios';
 import { Book } from '@models/books/types';
 
 const UpdateButton = () => {
   const [open, setOpen] = useState(false);
   const { id } = useParams<{ id: string }>();
-  const parsedId = id ? parseInt(id) : 0;
 
-  const [image, setImage] = useState<File | null>(null);
   const [state, dispatch] = useStore((store) => store.books);
   const command = useCommand((cmd) => cmd);
 
@@ -37,7 +34,7 @@ const UpdateButton = () => {
     description: '',
     genre: [''],
     id: 0,
-    publication_year: '',
+    publication_year: ''
   });
 
   useEffect(() => {
@@ -80,7 +77,6 @@ const UpdateButton = () => {
     dispatch(command.books.update(value));
   };
 
-  console.log('image:', image);
   return (
     <>
       <Box>
@@ -177,8 +173,7 @@ const UpdateButton = () => {
                 <Button
                   onClick={handleOpen}
                   color="secondary"
-                  variant="contained"
-                >
+                  variant="contained">
                   Cancel
                 </Button>
                 <Button
@@ -187,8 +182,7 @@ const UpdateButton = () => {
                   variant="contained"
                   onClick={() => {
                     handleSubmit(), handleOpen();
-                  }}
-                >
+                  }}>
                   Update
                 </Button>
               </DialogActions>
