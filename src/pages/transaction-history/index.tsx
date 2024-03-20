@@ -10,8 +10,19 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  useTheme
+  useTheme,
 } from '@components/material.js';
+
+interface TransactionItem {
+  cover_image: string;
+  title: string;
+  qty: number;
+}
+
+interface TransactionRow {
+  cart?: TransactionItem[];
+  totalProduct: number;
+}
 
 const tableHeader = ['Number', 'Image', 'Name', 'Quantity', 'Total Product'];
 
@@ -20,7 +31,10 @@ const TransactionHistory = () => {
 
   const [state, dispatch] = useStore((store) => store.transactionHistory);
   const command = useCommand((cmd) => cmd);
-  const transactionHistory = useMemo(() => state?.transactionHistory, [state]);
+  const transactionHistory: TransactionRow[] | undefined = useMemo(
+    () => state?.transactionHistory,
+    [state]
+  );
 
   return (
     <>
@@ -29,8 +43,9 @@ const TransactionHistory = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center'
-        }}>
+          alignItems: 'center',
+        }}
+      >
         <Table sx={{ minWidth: 500 }}>
           {/* TABLE HEADER */}
           <TableHead>
@@ -38,8 +53,9 @@ const TransactionHistory = () => {
               {tableHeader.map((header, index) => (
                 <TableCell
                   key={index}
-                  width={header == 'Image' ? 200 : undefined}
-                  align="center">
+                  width={header === 'Image' ? 200 : undefined}
+                  align="center"
+                >
                   {header}
                 </TableCell>
               ))}
@@ -48,44 +64,41 @@ const TransactionHistory = () => {
 
           {/* TABLE CONTENT / BODY */}
           <TableBody>
-            {transactionHistory?.map((row, index) => (
+            {transactionHistory?.map((row, rowIndex) => (
               <TableRow
-                key={index}
+                key={rowIndex}
                 sx={{
                   '&:hover': {
-                    backgroundColor: theme.palette.action.hover
-                  }
-                }}>
-                <TableCell align="center">{index + 1}</TableCell>
-                {row.cart?.map((item, index) => (
-                  <TableRow sx={{ width: '100%' }} key={index}>
-                    <TableCell>
+                    backgroundColor: theme.palette.action.hover,
+                  },
+                }}
+              >
+                <TableCell align="center">{rowIndex + 1}</TableCell>
+                <TableCell align="center">
+                  {row.cart?.map((item, itemIndex) => (
+                    <Box key={itemIndex}>
                       <img
                         src={item.cover_image}
                         alt={item.title}
-                        css={{ width: '150px', borderRadius: '4px' }}
+                        css={{
+                          width: '50px',
+                          borderRadius: '4px',
+                        }}
                       />
-                    </TableCell>
-                    <TableCell>{item.title}</TableCell>
-                    <TableCell>{item.qty}</TableCell>
-                  </TableRow>
-                ))}
-                <TableCell>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: {
-                        xs: 'column',
-                        sm: 'row'
-                      },
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      gap: '4px',
-                      height: '100%'
-                    }}>
-                    {row.totalProduct}
-                  </Box>
+                    </Box>
+                  ))}
                 </TableCell>
+                <TableCell align="center">
+                  {row.cart?.map((item, itemIndex) => (
+                    <Box key={itemIndex}>{item.title}</Box>
+                  ))}
+                </TableCell>
+                <TableCell align="center">
+                  {row.cart?.map((item, itemIndex) => (
+                    <Box key={itemIndex}>{item.qty}</Box>
+                  ))}
+                </TableCell>
+                <TableCell align="center">{row.totalProduct}</TableCell>
               </TableRow>
             ))}
           </TableBody>

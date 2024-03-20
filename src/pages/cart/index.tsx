@@ -11,7 +11,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  useTheme
+  useTheme,
 } from '@components/material.js';
 
 const tableHeader = ['Image', 'Name', 'Description', 'Quantity'];
@@ -28,10 +28,11 @@ const Cart = () => {
       <TableContainer
         component={Paper}
         sx={{
-          display: 'flex',
+          display: 'block',
           flexDirection: 'column',
-          alignItems: 'center'
-        }}>
+          alignItems: 'center',
+        }}
+      >
         <Table sx={{ minWidth: 500 }}>
           {/* TABLE HEADER */}
           <TableHead>
@@ -42,7 +43,8 @@ const Cart = () => {
                   width={header == 'Image' ? 200 : undefined}
                   align={
                     header == ('Description' || 'Delete') ? 'left' : 'center'
-                  }>
+                  }
+                >
                   {header}
                 </TableCell>
               ))}
@@ -56,9 +58,10 @@ const Cart = () => {
                 key={row.id}
                 sx={{
                   '&:hover': {
-                    backgroundColor: theme.palette.action.hover
-                  }
-                }}>
+                    backgroundColor: theme.palette.action.hover,
+                  },
+                }}
+              >
                 <TableCell component="th" scope="row">
                   <img
                     src={row.cover_image}
@@ -74,18 +77,20 @@ const Cart = () => {
                       display: 'flex',
                       flexDirection: {
                         xs: 'column',
-                        sm: 'row'
+                        sm: 'row',
                       },
                       justifyContent: 'center',
                       alignItems: 'center',
                       gap: '4px',
-                      height: '100%'
-                    }}>
+                      height: '100%',
+                    }}
+                  >
                     <Button
                       sx={{ paddingX: '4px' }}
                       onClick={() => {
                         dispatch(command.cart.removeFromCart(row));
-                      }}>
+                      }}
+                    >
                       -
                     </Button>
                     {row.qty}
@@ -93,7 +98,8 @@ const Cart = () => {
                       sx={{ paddingX: '4px' }}
                       onClick={() => {
                         dispatch(command.cart.addToCart(row));
-                      }}>
+                      }}
+                    >
                       +
                     </Button>
                   </Box>
@@ -116,12 +122,13 @@ const Cart = () => {
                   totalProduct:
                     state?.cart?.reduce((acc, curr) => {
                       return acc + curr.qty;
-                    }, 0) || 0
+                    }, 0) || 0,
                 })
               );
 
               dispatch(command.cart.clearCart());
-            }}>
+            }}
+          >
             Checkout
           </Button>
         </Box>

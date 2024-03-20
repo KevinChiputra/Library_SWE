@@ -5,7 +5,7 @@ import {
   CardContent,
   CardMedia,
   Grid,
-  Typography
+  Typography,
 } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { useCommand, useStore } from '@models/store';
@@ -41,9 +41,9 @@ const BookList: React.FC = () => {
   }, []);
 
   // Recommended Books
+  //show all books
   const recommendedBooks = useMemo(() => {
-    // Ambil 24 buku pertama dari data yang ada di API
-    return books?.slice(0, 24) || [];
+    return books || [];
   }, [books]);
 
   return (
@@ -70,8 +70,9 @@ const BookList: React.FC = () => {
                 <CardContent
                   sx={{
                     p: (theme) => `${theme.spacing(3, 5.25, 4)} !important`,
-                    height: '10rem'
-                  }}>
+                    height: '10rem',
+                  }}
+                >
                   <Typography sx={{ mb: 2 }} variant="h5">
                     {book.title}
                   </Typography>
@@ -85,12 +86,13 @@ const BookList: React.FC = () => {
                     py: 2.5,
                     width: '100%',
                     borderTopLeftRadius: 0,
-                    borderTopRightRadius: 0
+                    borderTopRightRadius: 0,
                   }}
                   onClick={() => {
                     dispatch(command.cart.addToCart(book));
                   }}
-                  variant="contained">
+                  variant="contained"
+                >
                   Add To Cart
                 </Button>
               </Card>
@@ -104,8 +106,9 @@ const BookList: React.FC = () => {
               marginTop: '1em',
               marginBottom: '1em',
               display: 'flex',
-              justifyContent: 'center'
-            }}>
+              justifyContent: 'center',
+            }}
+          >
             <Pagination
               color="primary"
               count={Math.ceil(recommendedBooks.length / booksPerPage)}

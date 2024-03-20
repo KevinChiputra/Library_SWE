@@ -1,6 +1,6 @@
 // ** MUI Imports
-import Box from '@mui/material/Box';
-import { Direction } from '@mui/material';
+
+import { Direction, Box, Paper } from '@mui/material';
 
 // ** Third Party Components
 import { useKeenSlider } from 'keen-slider/react';
@@ -10,7 +10,7 @@ import {
   Library1,
   Library2,
   Library4,
-  Library5
+  Library5,
 } from '@assets/images/carousel';
 
 interface CarouselProps {
@@ -24,7 +24,7 @@ const Carousel: React.FC<CarouselProps> = ({ direction }) => {
   const [ref] = useKeenSlider<HTMLDivElement>(
     {
       loop: true,
-      rtl: direction === 'rtl'
+      rtl: direction === 'rtl',
     },
     [
       (slider) => {
@@ -54,39 +54,58 @@ const Carousel: React.FC<CarouselProps> = ({ direction }) => {
         slider.on('dragStarted', clearNextTimeout);
         slider.on('animationEnded', nextTimeout);
         slider.on('updated', nextTimeout);
-      }
+      },
     ]
   );
 
   return (
-    <Box
-      ref={ref}
-      className="keen-slider"
-      sx={{
-        height: '400px',
-        width: '700px',
-        overflow: 'hidden',
-        borderRadius: '8px'
-      }}>
-      {carouselImages.map((image, index) => (
-        <Box
-          key={index}
-          className="keen-slider__slide"
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-          <img
-            src={image}
-            alt={`swiper ${index}`}
-            style={{
-              objectFit: 'cover'
+    <Paper>
+      <Box
+        ref={ref}
+        className="keen-slider"
+        sx={{
+          height: {
+            xs: '300px',
+            sm: '600px',
+            md: '700px',
+            lg: '800px',
+            xl: '900px',
+          },
+          width: {
+            xs: '600px',
+            sm: '700px',
+            md: '800px',
+            lg: '1000px',
+            xl: '1500px',
+          },
+
+          overflow: 'hidden',
+          borderRadius: '8px',
+        }}
+      >
+        {carouselImages.map((image, index) => (
+          <Box
+            key={index}
+            className="keen-slider__slide"
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
-          />
-        </Box>
-      ))}
-    </Box>
+          >
+            <img
+              src={image}
+              alt={`swiper ${index}`}
+              style={{
+                maxHeight: '100%',
+                maxWidth: '155%',
+                objectFit: 'cover',
+              }}
+            />
+          </Box>
+        ))}
+      </Box>
+    </Paper>
   );
 };
 
