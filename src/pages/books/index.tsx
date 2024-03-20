@@ -21,8 +21,10 @@ import { useCommand, useStore } from '@models/store.js';
 import { Book } from '@models/books/types';
 
 import DeleteIcon from '@mui/icons-material/Delete';
-import Pagination from '@mui/material/Pagination';
 import SearchIcon from '@mui/icons-material/Search';
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
+
+import Pagination from '@mui/material/Pagination';
 
 import AddButton from '@components/button/add-btn';
 import {
@@ -32,7 +34,14 @@ import {
 } from '@components/home/search-bar';
 import Filter from '@components/home/filter';
 
-const tableHeader = ['Image', 'Number', 'Name', 'Description', 'Delete'];
+const tableHeader = [
+  'Image',
+  'Number',
+  'Name',
+  'Description',
+  'Detail',
+  'Delete'
+];
 const booksPerPage = 10;
 
 const Books: PageComponent = () => {
@@ -43,7 +52,9 @@ const Books: PageComponent = () => {
   const command = useCommand((cmd) => cmd);
   const books = useMemo(() => state?.books, [state]);
 
-  const [filteredBooks, setFilteredBooks] = useState<Book[]>(books!);
+  const [filteredBooks, setFilteredBooks] = useState<Book[] | undefined>(
+    books!
+  );
 
   const handleDetail = (id: number) => {
     navigate(`/books/${id}`);
@@ -64,9 +75,9 @@ const Books: PageComponent = () => {
   const startIndex = lastIndex - booksPerPage;
 
   // ===== HANDLE DELETE BOOK =====
-  const handleDelete = (event: React.MouseEvent, book: Book) => {
-    event.stopPropagation();
+  const handleDelete = (book: Book) => {
     dispatch(command.books.remove(book));
+    setFilteredBooks(undefined);
   };
 
   // ===== SEARCHING BOOKS BY TITLE =====
@@ -168,12 +179,10 @@ const Books: PageComponent = () => {
                   <TableRow
                     key={row.id}
                     sx={{
-                      cursor: 'pointer',
                       '&:hover': {
                         backgroundColor: theme.palette.action.hover
                       }
-                    }}
-                    onClick={() => handleDetail(row.id)}>
+                    }}>
                     <TableCell component="th" scope="row">
                       <img
                         src={row.cover_image}
@@ -187,6 +196,18 @@ const Books: PageComponent = () => {
                     <TableCell>{row.title}</TableCell>
                     <TableCell>{row.description}</TableCell>
                     <TableCell align="center">
+                      <VisibilityRoundedIcon
+                        sx={{
+                          color: 'grey',
+                          cursor: 'pointer',
+                          '&:hover': {
+                            color: theme.palette.primary.main
+                          }
+                        }}
+                        onClick={() => handleDetail(row.id)}
+                      />
+                    </TableCell>
+                    <TableCell align="center">
                       <DeleteIcon
                         sx={{
                           color: 'grey',
@@ -195,7 +216,7 @@ const Books: PageComponent = () => {
                             color: '#B90E0A'
                           }
                         }}
-                        onClick={(event) => handleDelete(event, row)}
+                        onClick={() => handleDelete(row)}
                       />
                     </TableCell>
                   </TableRow>
