@@ -12,6 +12,8 @@ import { cartCommands } from './cart/commands.js';
 import { cartReducer } from './cart/reducers.js';
 import { productsCommand } from './products/commands.js';
 import { productsReducer } from './products/reducers.js';
+import { transactionHistoryReducer } from './transaction-history/reducers.js';
+import { transactionHistoryCommands } from './transaction-history/commands.js';
 
 import type { RootAction, RootModel } from './types.js';
 
@@ -19,21 +21,24 @@ import type { RootAction, RootModel } from './types.js';
 const rootReducer = combineReducers({
   books: booksReducer,
   products: productsReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  transactionHistory: transactionHistoryReducer
 });
 
 // ** Init models
 const rootModel: RootModel = {
   books: {},
   products: {},
-  cart: { cart: [] }
+  cart: { cart: [] },
+  transactionHistory: { transactionHistory: [] }
 };
 
 // ** Init commands
 const rootCommand = {
   books: booksCommand,
   products: productsCommand,
-  cart: cartCommands
+  cart: cartCommands,
+  transactionHistory: transactionHistoryCommands
 };
 
 // ** Create store
