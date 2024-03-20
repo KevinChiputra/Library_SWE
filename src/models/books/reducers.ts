@@ -33,13 +33,8 @@ const booksReducer = (
 
       restBooks = restBooks as Book[];
 
-      // console.log('state', { ...state.books });
-      // console.log('restBooks', { ...restBooks });
-      // console.log('action.value', { ...action.value });
-
       if (state.books && action.value) {
         return { ...state, books: [...restBooks, action.value] };
-        // ? return { ...state.books, ...action.value };
       }
 
       return state;

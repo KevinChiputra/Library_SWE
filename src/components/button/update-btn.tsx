@@ -56,7 +56,7 @@ const UpdateButton = () => {
         const imageDataUrl = reader.result as string;
         setValue({ ...value, cover_image: imageDataUrl });
         localStorage.setItem('recent-image', imageDataUrl);
-        console.log('imageDataURL', imageDataUrl);
+        // console.log('imageDataURL', imageDataUrl);
       };
 
       reader.readAsDataURL(file); // Membaca file sebagai URL data

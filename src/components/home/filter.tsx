@@ -4,7 +4,7 @@ import {
   Box,
   IconButton,
   Paper,
-  Typography,
+  Typography
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
@@ -64,7 +64,6 @@ const Filter: React.FC<FilterProps> = ({ books, onFilterChange }) => {
       );
     }
     setFilteredBooks(filtered);
-    console.log(filtered);
     setShowNotFoundMessage(selectedFilters.length > 0 && filtered.length === 0);
 
     // Panggil onFilterChange dengan daftar genre yang dipilih
@@ -89,33 +88,31 @@ const Filter: React.FC<FilterProps> = ({ books, onFilterChange }) => {
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'center',
+          horizontal: 'center'
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'center',
+          horizontal: 'center'
         }}
         sx={{
           '& .MuiPaper-root': {
             overflowY: 'auto',
             scrollbarWidth: 'thin', // Atur lebar scroll bar
             '&::-webkit-scrollbar': {
-              width: '8px', // Ubah lebar scroll bar untuk browser WebKit
+              width: '8px' // Ubah lebar scroll bar untuk browser WebKit
             },
             '&::-webkit-scrollbar-thumb': {
-              backgroundColor: '#888',
-            },
-          },
-        }}
-      >
+              backgroundColor: '#888'
+            }
+          }
+        }}>
         <Paper style={{ height: '350px' }}>
           <Box sx={{ p: 2 }}>
             {genres.map((genre) => (
               <MenuItem
                 key={genre}
                 onClick={(event) => handleFilterChange(genre, event)}
-                selected={selectedFilters.includes(genre)}
-              >
+                selected={selectedFilters.includes(genre)}>
                 {genre}
               </MenuItem>
             ))}

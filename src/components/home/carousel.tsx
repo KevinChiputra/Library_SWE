@@ -70,6 +70,7 @@ const Carousel: React.FC<CarouselProps> = ({ direction }) => {
       }}>
       {carouselImages.map((image, index) => (
         <Box
+          key={index}
           className="keen-slider__slide"
           sx={{
             display: 'flex',
