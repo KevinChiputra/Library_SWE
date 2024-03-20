@@ -35,7 +35,7 @@ const UpdateButton = () => {
     description: '',
     genre: [''],
     id: 0,
-    publication_year: '',
+    publication_year: 0,
   });
 
   useEffect(() => {
