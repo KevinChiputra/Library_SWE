@@ -35,9 +35,11 @@ const BookList: React.FC = () => {
   const books = useMemo(() => state?.books, [state]);
 
   useEffect(() => {
-    dispatch(command.books.load()).catch((err: unknown) => {
-      console.error(err);
-    });
+    if (!books?.length) {
+      dispatch(command.books.load()).catch((err: unknown) => {
+        console.error(err);
+      });
+    }
   }, []);
 
   // Recommended Books
@@ -98,7 +100,7 @@ const BookList: React.FC = () => {
           ))}
 
         {/* PAGINATION */}
-        <Grid item md={12}>
+        <Grid item xs={12}>
           <div
             style={{
               marginTop: '1em',

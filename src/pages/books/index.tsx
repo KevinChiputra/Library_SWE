@@ -50,9 +50,11 @@ const Books: PageComponent = () => {
   };
 
   useEffect(() => {
-    dispatch(command.books.load()).catch((err: unknown) => {
-      console.error(err);
-    });
+    if (!books?.length) {
+      dispatch(command.books.load()).catch((err: unknown) => {
+        console.error(err);
+      });
+    }
   }, []);
 
   // ===== SET PAGINATION =====

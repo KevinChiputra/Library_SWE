@@ -18,9 +18,11 @@ const DetailBook: PageComponent = () => {
   );
 
   useEffect(() => {
-    dispatch(command.books.load()).catch((err: unknown) => {
-      console.error(err);
-    });
+    if (!state?.books?.length) {
+      dispatch(command.books.load()).catch((err: unknown) => {
+        console.error(err);
+      });
+    }
   }, []);
 
   return (
