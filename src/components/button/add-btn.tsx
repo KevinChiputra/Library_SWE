@@ -8,15 +8,13 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  TextField,
+  TextField
 } from '@mui/material';
 import { useCommand, useStore } from '@models/store';
 import { Book } from '@models/books/types';
-import { setValue } from '@nxweb/core';
 
-const AddBook = () => {
+const AddButton = () => {
   const [open, setOpen] = useState(false);
-  const [image, setImage] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [state, dispatch] = useStore((store) => store.books);
@@ -29,7 +27,7 @@ const AddBook = () => {
     genre: [],
     id: 0,
     publication_year: '',
-    title: '',
+    title: ''
   });
 
   // INI UNTUK MENDAPATKAN INDEX TERAKHIR DARI OBJECT
@@ -52,15 +50,15 @@ const AddBook = () => {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file !== undefined && file !== null) {
-      const reader = new FileReader()
+      const reader = new FileReader();
 
       reader.onload = () => {
-        const urlImgData = reader.result as string
-        setAdditionalBook({...additionalBook, cover_image: urlImgData})
-        localStorage.setItem('new-image-book', urlImgData)
-      }
+        const urlImgData = reader.result as string;
+        setAdditionalBook({ ...additionalBook, cover_image: urlImgData });
+        localStorage.setItem('new-image-book', urlImgData);
+      };
 
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(file);
     }
   };
 
@@ -72,14 +70,13 @@ const AddBook = () => {
     const newGenreToAdd = input.split(' ').filter(Boolean);
     setAdditionalBook({
       ...additionalBook,
-      genre: { ...additionalBook.genre, ...newGenreToAdd },
+      genre: { ...additionalBook.genre, ...newGenreToAdd }
     });
   };
 
   const handleSubmit = () => {
     const newBook: Book = { ...additionalBook, id: lastIndex };
     dispatch(command.books.add(newBook));
-
 
     handleClose();
   };
@@ -91,8 +88,7 @@ const AddBook = () => {
         variant="contained"
         size="small"
         sx={{ minWidth: 'unset', fontSize: '0.8rem' }}
-        onClick={handleOpen}
-      >
+        onClick={handleOpen}>
         Add Book
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -100,10 +96,9 @@ const AddBook = () => {
         <DialogContent
           sx={{
             width: {
-              sm: '500px',
-            },
-          }}
-        >
+              sm: '500px'
+            }
+          }}>
           <Grid container={true} spacing={2}>
             <Grid item={true} xs={12}>
               <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
@@ -115,7 +110,7 @@ const AddBook = () => {
                   onChange={(e) =>
                     setAdditionalBook({
                       ...additionalBook,
-                      author: e.target.value,
+                      author: e.target.value
                     })
                   }
                 />
@@ -129,7 +124,7 @@ const AddBook = () => {
                   onChange={(e) =>
                     setAdditionalBook({
                       ...additionalBook,
-                      publication_year: e.target.value,
+                      publication_year: e.target.value
                     })
                   }
                 />
@@ -143,7 +138,7 @@ const AddBook = () => {
                   onChange={(e) =>
                     setAdditionalBook({
                       ...additionalBook,
-                      title: e.target.value,
+                      title: e.target.value
                     })
                   }
                 />
@@ -166,7 +161,7 @@ const AddBook = () => {
                   onChange={(e) =>
                     setAdditionalBook({
                       ...additionalBook,
-                      description: e.target.value,
+                      description: e.target.value
                     })
                   }
                 />
@@ -195,8 +190,7 @@ const AddBook = () => {
             color="primary"
             variant="contained"
             type="submit"
-            onClick={handleSubmit}
-          >
+            onClick={handleSubmit}>
             Add
           </Button>
         </DialogActions>
@@ -205,6 +199,4 @@ const AddBook = () => {
   );
 };
 
-AddBook.displayName = 'FormAddBook';
-
-export default AddBook;
+export default AddButton;

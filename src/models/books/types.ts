@@ -6,6 +6,7 @@ interface Book {
   id: number;
   publication_year: number | string;
   title: string;
+  [key: string]: string | number | string[];
 }
 
 // Page Model
