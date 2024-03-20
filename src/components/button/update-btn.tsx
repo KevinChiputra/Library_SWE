@@ -155,7 +155,22 @@ const UpdateButton = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} style={{ marginBottom: '1rem' }}>
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  marginBottom: '1rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '1rem'
+                }}>
+                {value.cover_image && (
+                  <img
+                    src={value.cover_image}
+                    alt="Foto Buku"
+                    css={{ width: '50%', borderRadius: '4px' }}
+                  />
+                )}
                 <input
                   accept="image/*"
                   id="contained-button-file"
@@ -164,7 +179,17 @@ const UpdateButton = () => {
                   ref={fileInputRef}
                   onChange={handleImageChange}
                 />
-                <Button variant="contained" onClick={handleUploadButtonClick}>
+                <Button
+                  variant="contained"
+                  color="info"
+                  sx={{
+                    width: '50%',
+                    fontSize: {
+                      xs: '0.75rem',
+                      sm: '1rem'
+                    }
+                  }}
+                  onClick={handleUploadButtonClick}>
                   Upload Book Cover
                 </Button>
               </Grid>
