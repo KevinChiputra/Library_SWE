@@ -13,6 +13,11 @@ const cartCommands = {
       type: CartActionType.REMOVE_FROM_CART,
       value: book
     };
+  },
+  clearCart: (): CartAction => {
+    return {
+      type: CartActionType.CLEAR_CART
+    };
   }
 };
 
