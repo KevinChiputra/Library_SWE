@@ -7,7 +7,6 @@ import { Card, CardContent, Grid, Typography } from '@components/material.js';
 import type { Book } from '@models/books/types';
 import { useCommand, useStore } from '@models/store';
 
-import Header from '@components/home/header';
 import BookList from '@components/home/book-list';
 import Carousell from '@components/home/carousell';
 
@@ -72,12 +71,11 @@ const Home: PageComponent = () => {
 
   return (
     <div>
-      <Header />
       <Carousell direction={'ltr'} />
       <BookList />
 
       {/* DUMMY */}
-      <Grid container={true} spacing={6}>
+      {/* <Grid container={true} spacing={6}>
         <Grid item={true} xs={12}>
           <Card>
             <CardContent>
@@ -96,7 +94,7 @@ const Home: PageComponent = () => {
             </CardContent>
           </Card>
         </Grid>
-      </Grid>
+      </Grid> */}
     </div>
   );
 };

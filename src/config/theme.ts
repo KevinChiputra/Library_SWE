@@ -18,41 +18,41 @@ import type {
   HorizontalMenuToggle,
   Mode,
   Skin,
-  VerticalNavToggle
+  VerticalNavToggle,
 } from '@layouts/types.js';
 
 interface ThemeConfig {
-  afterVerticalNavMenuContentPosition: 'fixed' | 'static'
-  appBar: AppBar
-  appBarBlur: boolean
-  beforeVerticalNavMenuContentPosition: 'fixed' | 'static'
-  collapsedNavigationSize: number
-  contentWidth: ContentWidth
-  direction: Direction
-  disableCustomizer: boolean
-  disableRipple: boolean
-  footer: Footer
-  horizontalMenuAnimation: boolean
-  horizontalMenuToggle: HorizontalMenuToggle
-  layout: 'horizontal' | 'vertical'
-  menuTextTruncate: boolean
-  mode: Mode
-  navCollapsed: boolean
-  navHidden: boolean
-  navigationSize: number
-  navSubItemIcon: ReactNode
-  responsiveFontSizes: boolean
-  routingLoader: boolean
-  skin: Skin
-  templateName: string
+  afterVerticalNavMenuContentPosition: 'fixed' | 'static';
+  appBar: AppBar;
+  appBarBlur: boolean;
+  beforeVerticalNavMenuContentPosition: 'fixed' | 'static';
+  collapsedNavigationSize: number;
+  contentWidth: ContentWidth;
+  direction: Direction;
+  disableCustomizer: boolean;
+  disableRipple: boolean;
+  footer: Footer;
+  horizontalMenuAnimation: boolean;
+  horizontalMenuToggle: HorizontalMenuToggle;
+  layout: 'horizontal' | 'vertical';
+  menuTextTruncate: boolean;
+  mode: Mode;
+  navCollapsed: boolean;
+  navHidden: boolean;
+  navigationSize: number;
+  navSubItemIcon: ReactNode;
+  responsiveFontSizes: boolean;
+  routingLoader: boolean;
+  skin: Skin;
+  templateName: string;
   toastPosition:
-  | 'bottom-center'
-  | 'bottom-left'
-  | 'bottom-right'
-  | 'top-center'
-  | 'top-left'
-  | 'top-right'
-  verticalNavToggleType: VerticalNavToggle
+    | 'bottom-center'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'top-center'
+    | 'top-left'
+    | 'top-right';
+  verticalNavToggleType: VerticalNavToggle;
 }
 
 export const config: ThemeConfig = {
@@ -63,7 +63,7 @@ export const config: ThemeConfig = {
   layout: 'vertical' /* vertical | horizontal */,
   mode: 'light' as Mode /* light | dark | semi-dark /*! Note: semi-dark value will only work for Vertical Layout */,
   skin: 'default' /* default | bordered */,
-  templateName: 'Vuexy' /* App Name */,
+  templateName: 'Library' /* App Name */,
 
   // ** Routing Configs
   routingLoader: true /* true | false */,
@@ -94,7 +94,7 @@ export const config: ThemeConfig = {
   disableRipple: false /* true | false */,
   responsiveFontSizes: false /* true | false */,
   toastPosition:
-    'top-right' /* Top-left | top-center | top-right | bottom-left | bottom-center | bottom-right */
+    'top-right' /* Top-left | top-center | top-right | bottom-left | bottom-center | bottom-right */,
 };
 
 // ** To use core palette, uncomment the below import

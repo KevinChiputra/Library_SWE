@@ -15,6 +15,8 @@ import AddButton from './add-book';
 import { Search, SearchIconWrapper, StyledInputBase } from './search-bar';
 import { Book } from '@models/books/types';
 import Filter from './filter';
+import Header from './header';
+import { Head } from '@nxweb/react';
 
 const itemsPerPage = 6; // Jumlah item per halaman
 
@@ -225,15 +227,11 @@ const BookList: React.FC = () => {
         />
       </div>
 
+      <Header></Header>
       {/* SHOW RECOMMENDED BOOKS */}
       {recommendedBooks.length > 0 && (
         <>
           <Grid container={true} spacing={3}>
-            <Grid item md={12}>
-              <Typography variant="h5" gutterBottom>
-                Recommended Books
-              </Typography>
-            </Grid>
             {recommendedBooks
               .slice(recommendedStartIndex, recommendedEndIndex)
               .map((book, index) => (
