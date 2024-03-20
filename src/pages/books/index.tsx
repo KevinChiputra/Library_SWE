@@ -237,17 +237,19 @@ const Books: PageComponent = () => {
             sx={{ marginY: '1rem' }}
             // Jumlah halaman dihitung berdasarkan jumlah total filteredBooks dan item per halaman
             /*
+             * Jika books tidak ditemukan, maka jumlah halaman dihitung 0
              * Jika filteredBooks tidak ditemukan, maka jumlah halaman dihitung berdasarkan jumlah total books
-             * Jika books tidak ditemukan, maka jumlah halaman dihitung berdasarkan 0
              * Jika filteredBooks ditemukan, maka jumlah halaman dihitung berdasarkan jumlah total filteredBooks
              */
-            count={Math.ceil(
-              (filteredBooks === undefined
-                ? books?.length!
-                : books === undefined
-                ? 0
-                : filteredBooks.length) / booksPerPage
-            )}
+            count={
+              books !== undefined
+                ? Math.ceil(
+                    (filteredBooks === undefined
+                      ? books?.length!
+                      : filteredBooks.length) / booksPerPage
+                  )
+                : 0
+            }
             color="primary"
             page={currentPage}
             onChange={(_, page) => setCurrentPage(page)}

@@ -152,7 +152,10 @@ const UpdateButton = () => {
                   placeholder="Publication Year"
                   value={value.publication_year}
                   onChange={(e) =>
-                    setValue({ ...value, publication_year: e.target.value })
+                    setValue({
+                      ...value,
+                      publication_year: parseInt(e.target.value),
+                    })
                   }
                 />
               </Grid>
