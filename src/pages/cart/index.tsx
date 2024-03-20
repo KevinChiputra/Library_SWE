@@ -13,10 +13,12 @@ import {
   TableRow,
   useTheme,
 } from '@components/material.js';
+import { toast, Toaster } from 'react-hot-toast';
+import { PageComponent } from '@nxweb/react';
 
 const tableHeader = ['Image', 'Name', 'Description', 'Quantity'];
 
-const Cart = () => {
+const Cart: PageComponent = () => {
   const theme = useTheme();
 
   const [state, dispatch] = useStore((store) => store.cart);
@@ -25,6 +27,7 @@ const Cart = () => {
 
   return (
     <>
+      <Toaster position="top-right" />
       <TableContainer
         component={Paper}
         sx={{
@@ -88,6 +91,7 @@ const Cart = () => {
                     <Button
                       sx={{ paddingX: '4px' }}
                       onClick={() => {
+                        toast.error('Reduce 1 Book!');
                         dispatch(command.cart.removeFromCart(row));
                       }}
                     >
@@ -97,6 +101,7 @@ const Cart = () => {
                     <Button
                       sx={{ paddingX: '4px' }}
                       onClick={() => {
+                        toast.success('Add 1 Book!');
                         dispatch(command.cart.addToCart(row));
                       }}
                     >
@@ -116,6 +121,7 @@ const Cart = () => {
             sx={{ alignItems: 'flex-end' }}
             variant="contained"
             onClick={() => {
+              toast.success('Checkout Success!');
               dispatch(
                 command.transactionHistory.addToTransactionHistory({
                   cart: state?.cart,

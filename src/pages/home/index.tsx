@@ -6,8 +6,8 @@ import Carousel from '@components/home/carousel';
 const Home: PageComponent = () => {
   return (
     <div>
-      <Carousel direction={'ltr'} />
       <Toaster position="top-right" />
+      <Carousel direction={'ltr'} />
       <BookList />
     </div>
   );

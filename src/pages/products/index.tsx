@@ -22,7 +22,7 @@ import { Book } from '@models/books/types';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import Pagination from '@mui/material/Pagination';
-import toast, { Toast, Toaster } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 const Books: PageComponent = () => {
   const navigate = useNavigate();
@@ -85,7 +85,6 @@ const Books: PageComponent = () => {
           paddingBottom: '1rem',
         }}
       >
-        <Toaster />
         <Table sx={{ minWidth: 500 }}>
           <TableHead>
             <TableRow>

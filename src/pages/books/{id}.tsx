@@ -6,6 +6,7 @@ import type { PageComponent } from '@nxweb/react';
 import { Box, Chip, Typography } from '@components/material.js';
 import { useCommand, useStore } from '@models/store.js';
 import UpdateButton from '@components/button/update-btn';
+import { Toaster } from 'react-hot-toast';
 
 const DetailBook: PageComponent = () => {
   const { id } = useParams();
@@ -27,27 +28,30 @@ const DetailBook: PageComponent = () => {
 
   return (
     <>
+      <Toaster position="top-right" />
       <Box
         sx={{
           display: 'flex',
           flexDirection: {
             xs: 'column',
-            sm: 'row'
+            sm: 'row',
           },
           alignItems: 'start',
-          gap: 4
-        }}>
+          gap: 4,
+        }}
+      >
         <Box
           sx={{
             width: {
               xs: '50%',
-              sm: '25%'
+              sm: '25%',
             },
             height: {
               xs: '50%',
-              sm: '100%'
-            }
-          }}>
+              sm: '100%',
+            },
+          }}
+        >
           <img
             src={book?.cover_image}
             alt="Foto Buku"
@@ -59,15 +63,17 @@ const DetailBook: PageComponent = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 4
-          }}>
+            gap: 4,
+          }}
+        >
           <Typography
             sx={{
               alignItems: 'start',
               display: 'flex',
               flexDirection: 'column',
-              gap: '2px'
-            }}>
+              gap: '2px',
+            }}
+          >
             {book?.title}
           </Typography>
           <Box>

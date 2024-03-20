@@ -5,10 +5,13 @@ import { config as themeConfig } from '@config/theme.js';
 import type { LayoutProps } from '@layouts/types.js';
 
 import { HorizontalNavItems } from './navigation/nav-items.js';
+import { Toaster } from 'react-hot-toast';
 
 interface Props extends PropsWithChildren {
-  readonly horizontalNavItems: NonNullable<NonNullable<LayoutProps['horizontalLayoutProps']>['navMenu']>['navItems']
-  readonly settings: LayoutProps['settings']
+  readonly horizontalNavItems: NonNullable<
+    NonNullable<LayoutProps['horizontalLayoutProps']>['navMenu']
+  >['navItems'];
+  readonly settings: LayoutProps['settings'];
 }
 
 const Navigation: FC<Props> = (props: Props) => {
@@ -18,14 +21,15 @@ const Navigation: FC<Props> = (props: Props) => {
       sx={{
         '& > *': {
           '&:not(:last-child)': { mr: 1 },
-          ...themeConfig.menuTextTruncate && { maxWidth: 200 }
+          ...(themeConfig.menuTextTruncate && { maxWidth: 200 }),
         },
         alignItems: 'center',
         display: 'flex',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
       }}
     >
       <HorizontalNavItems {...props} />
+      <Toaster position="top-right" />
     </Box>
   );
 };

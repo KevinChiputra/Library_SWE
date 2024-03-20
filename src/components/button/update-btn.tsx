@@ -7,11 +7,12 @@ import {
   DialogContent,
   DialogActions,
   Grid,
-  TextField
+  TextField,
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useCommand, useStore } from '@models/store';
 import { Book } from '@models/books/types';
+import toast from 'react-hot-toast';
 
 const UpdateButton = () => {
   const [open, setOpen] = useState(false);
@@ -34,7 +35,7 @@ const UpdateButton = () => {
     description: '',
     genre: [''],
     id: 0,
-    publication_year: ''
+    publication_year: '',
   });
 
   useEffect(() => {
@@ -74,6 +75,7 @@ const UpdateButton = () => {
   };
 
   const handleSubmit = () => {
+    toast.success('Update Success!');
     dispatch(command.books.update(value));
   };
 
@@ -162,8 +164,9 @@ const UpdateButton = () => {
                   marginBottom: '1rem',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '1rem'
-                }}>
+                  gap: '1rem',
+                }}
+              >
                 {value.cover_image && (
                   <img
                     src={value.cover_image}
@@ -186,10 +189,11 @@ const UpdateButton = () => {
                     width: '50%',
                     fontSize: {
                       xs: '0.75rem',
-                      sm: '1rem'
-                    }
+                      sm: '1rem',
+                    },
                   }}
-                  onClick={handleUploadButtonClick}>
+                  onClick={handleUploadButtonClick}
+                >
                   Upload Book Cover
                 </Button>
               </Grid>
@@ -198,7 +202,8 @@ const UpdateButton = () => {
                 <Button
                   onClick={handleOpen}
                   color="secondary"
-                  variant="contained">
+                  variant="contained"
+                >
                   Cancel
                 </Button>
                 <Button
@@ -207,7 +212,8 @@ const UpdateButton = () => {
                   variant="contained"
                   onClick={() => {
                     handleSubmit(), handleOpen();
-                  }}>
+                  }}
+                >
                   Update
                 </Button>
               </DialogActions>

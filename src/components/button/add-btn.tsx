@@ -65,7 +65,6 @@ const AddButton = () => {
 
   const handleUploadButtonClick = () => {
     fileInputRef.current?.click();
-    toast.success('Picture Succesfully Added!');
   };
 
   const handleGenre = (input: string) => {
@@ -78,6 +77,7 @@ const AddButton = () => {
 
   const handleSubmit = () => {
     const newBook: Book = { ...additionalBook, id: lastIndex };
+    toast.success('Successfully Added Book!');
     dispatch(command.books.add(newBook));
 
     handleClose();
