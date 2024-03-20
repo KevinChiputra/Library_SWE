@@ -21,12 +21,12 @@ const AddButton = () => {
   const command = useCommand((cmd) => cmd);
 
   const [additionalBook, setAdditionalBook] = useState<Book>({
+    id: 0,
     author: '',
     cover_image: 'https://fakeimg.pl/667x1000/cc6600',
     description: '',
     genre: [],
-    id: 0,
-    publication_year: '',
+    publication_year: 0,
     title: ''
   });
 
@@ -123,7 +123,7 @@ const AddButton = () => {
                   onChange={(e) =>
                     setAdditionalBook({
                       ...additionalBook,
-                      publication_year: e.target.value
+                      publication_year: parseInt(e.target.value)
                     })
                   }
                 />

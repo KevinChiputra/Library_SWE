@@ -34,7 +34,7 @@ const UpdateButton = () => {
     description: '',
     genre: [''],
     id: 0,
-    publication_year: ''
+    publication_year: 0
   });
 
   useEffect(() => {
@@ -150,7 +150,10 @@ const UpdateButton = () => {
                   placeholder="Publication Year"
                   value={value.publication_year}
                   onChange={(e) =>
-                    setValue({ ...value, publication_year: e.target.value })
+                    setValue({
+                      ...value,
+                      publication_year: parseInt(e.target.value)
+                    })
                   }
                 />
               </Grid>
