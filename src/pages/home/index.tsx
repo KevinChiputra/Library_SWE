@@ -1,15 +1,12 @@
 import { useEffect, useMemo } from 'react';
 
 import type { PageComponent } from '@nxweb/react';
-import { Button } from '@nxweb/react-bootstrap';
 
-import { Card, CardContent, Grid, Typography } from '@components/material.js';
 import type { Book } from '@models/books/types';
 import { useCommand, useStore } from '@models/store';
 
-import Header from '@components/home/header';
 import BookList from '@components/home/book-list';
-import Carousell from '@components/home/carousell';
+import Carousel from '@components/home/carousel';
 
 const Home: PageComponent = () => {
   const [state, dispatch] = useStore((store) => store.books);
@@ -23,7 +20,7 @@ const Home: PageComponent = () => {
     genre: [''],
     id: 1000,
     publication_year: 1,
-    title: 'Additional Book',
+    title: 'Additional Book'
   };
 
   const updatedBook = {
@@ -33,7 +30,7 @@ const Home: PageComponent = () => {
     genre: [''],
     id: 1000,
     publication_year: 1,
-    title: 'Additional Updated Book',
+    title: 'Additional Updated Book'
   };
 
   useEffect(() => {
@@ -46,7 +43,6 @@ const Home: PageComponent = () => {
     return () => {
       dispatch(command.books.clear());
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addBook = () => {
@@ -72,31 +68,8 @@ const Home: PageComponent = () => {
 
   return (
     <div>
-      <Header />
-      <Carousell direction={'ltr'} />
+      <Carousel direction={'ltr'} />
       <BookList />
-
-      {/* DUMMY */}
-      <Grid container={true} spacing={6}>
-        <Grid item={true} xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h5">
-                Example of Add, Remove, and Update Book
-              </Typography>
-              <Button onClick={addBook}>Add Book</Button>
-              <Button onClick={removeBook}>Remove Book</Button>
-              <Button
-                onClick={() => {
-                  updateBook(updatedBook);
-                }}
-              >
-                Update Book
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
     </div>
   );
 };

@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Typography } from '@mui/material';
 
-const Header: React.FC = () => {
+const Header: React.FC<{ title: string }> = (props) => {
   return (
     <div>
-      <Typography sx={{ fontSize: '1.5rem' }}>Recommended Book</Typography>
+      <Typography sx={{ fontSize: '1.5rem' }}>{props.title}</Typography>
       <hr />
     </div>
   );
