@@ -5,7 +5,7 @@ import {
   CardContent,
   CardMedia,
   Grid,
-  Typography,
+  Typography
 } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { useCommand, useStore } from '@models/store';
@@ -34,22 +34,10 @@ const BookList: React.FC = () => {
 
   const books = useMemo(() => state?.books, [state]);
 
-  //cek kondisi ketika search kosong setelah setiap karakter dihapus
-  // useEffect(() => {
-  //   if (filteredBooks.length === 0 && page !== 1) {
-  //     setPage(1);
-  //   }
-  // }, [filteredBooks, page]);
-  // ===================================
-
   useEffect(() => {
     dispatch(command.books.load()).catch((err: unknown) => {
       console.error(err);
     });
-
-    return () => {
-      dispatch(command.books.clear());
-    };
   }, []);
 
   // Recommended Books
@@ -62,7 +50,7 @@ const BookList: React.FC = () => {
     <div style={{ marginTop: '12px' }}>
       <Grid container={true} spacing={3}>
         {/* HEADER */}
-        <Grid item md={12}>
+        <Grid item xs={12}>
           <Header title="Recommended Books" />
         </Grid>
 
@@ -82,9 +70,8 @@ const BookList: React.FC = () => {
                 <CardContent
                   sx={{
                     p: (theme) => `${theme.spacing(3, 5.25, 4)} !important`,
-                    height: '10rem',
-                  }}
-                >
+                    height: '10rem'
+                  }}>
                   <Typography sx={{ mb: 2 }} variant="h5">
                     {book.title}
                   </Typography>
@@ -98,10 +85,12 @@ const BookList: React.FC = () => {
                     py: 2.5,
                     width: '100%',
                     borderTopLeftRadius: 0,
-                    borderTopRightRadius: 0,
+                    borderTopRightRadius: 0
                   }}
-                  variant="contained"
-                >
+                  onClick={() => {
+                    dispatch(command.cart.addToCart(book));
+                  }}
+                  variant="contained">
                   Add To Cart
                 </Button>
               </Card>
@@ -115,9 +104,8 @@ const BookList: React.FC = () => {
               marginTop: '1em',
               marginBottom: '1em',
               display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
+              justifyContent: 'center'
+            }}>
             <Pagination
               color="primary"
               count={Math.ceil(recommendedBooks.length / booksPerPage)}

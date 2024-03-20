@@ -53,10 +53,6 @@ const Books: PageComponent = () => {
     dispatch(command.books.load()).catch((err: unknown) => {
       console.error(err);
     });
-
-    return () => {
-      dispatch(command.books.clear());
-    };
   }, []);
 
   // ===== SET PAGINATION =====

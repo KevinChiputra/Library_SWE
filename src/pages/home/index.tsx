@@ -38,11 +38,6 @@ const Home: PageComponent = () => {
     dispatch(command.books.loadOne(1)).catch((err: unknown) => {
       console.error(err);
     });
-
-    // * CLEARING STATE AFTER LEAVING THE PAGE
-    return () => {
-      dispatch(command.books.clear());
-    };
   }, []);
 
   const addBook = () => {
