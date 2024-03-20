@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { useCommand, useStore } from '@models/store';
 import { Book } from '@models/books/types';
+import toast from 'react-hot-toast';
 
 const AddButton = () => {
   const [open, setOpen] = useState(false);
@@ -64,6 +65,7 @@ const AddButton = () => {
 
   const handleUploadButtonClick = () => {
     fileInputRef.current?.click();
+    toast.success('Picture Succesfully Added!');
   };
 
   const handleGenre = (input: string) => {
