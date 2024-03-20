@@ -8,10 +8,11 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  TextField
+  TextField,
 } from '@mui/material';
 import { useCommand, useStore } from '@models/store';
 import { Book } from '@models/books/types';
+import toast from 'react-hot-toast';
 
 const AddButton = () => {
   const [open, setOpen] = useState(false);
@@ -27,7 +28,7 @@ const AddButton = () => {
     genre: [],
     id: 0,
     publication_year: '',
-    title: ''
+    title: '',
   });
 
   // INI UNTUK MENDAPATKAN INDEX TERAKHIR DARI OBJECT
@@ -64,13 +65,14 @@ const AddButton = () => {
 
   const handleUploadButtonClick = () => {
     fileInputRef.current?.click();
+    toast.success('Picture Succesfully Added!');
   };
 
   const handleGenre = (input: string) => {
     const newGenreToAdd = input.split(' ').filter(Boolean);
     setAdditionalBook({
       ...additionalBook,
-      genre: [...additionalBook.genre, ...newGenreToAdd]
+      genre: [...additionalBook.genre, ...newGenreToAdd],
     });
   };
 
@@ -87,7 +89,8 @@ const AddButton = () => {
         variant="contained"
         size="small"
         sx={{ minWidth: 'unset', fontSize: '0.8rem' }}
-        onClick={handleOpen}>
+        onClick={handleOpen}
+      >
         Add Book
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -95,9 +98,10 @@ const AddButton = () => {
         <DialogContent
           sx={{
             width: {
-              sm: '500px'
-            }
-          }}>
+              sm: '500px',
+            },
+          }}
+        >
           <Grid container={true} spacing={2}>
             <Grid item={true} xs={12}>
               <Grid item={true} style={{ marginBottom: '1rem' }} xs={12}>
@@ -109,7 +113,7 @@ const AddButton = () => {
                   onChange={(e) =>
                     setAdditionalBook({
                       ...additionalBook,
-                      author: e.target.value
+                      author: e.target.value,
                     })
                   }
                 />
@@ -123,7 +127,7 @@ const AddButton = () => {
                   onChange={(e) =>
                     setAdditionalBook({
                       ...additionalBook,
-                      publication_year: e.target.value
+                      publication_year: e.target.value,
                     })
                   }
                 />
@@ -137,7 +141,7 @@ const AddButton = () => {
                   onChange={(e) =>
                     setAdditionalBook({
                       ...additionalBook,
-                      title: e.target.value
+                      title: e.target.value,
                     })
                   }
                 />
@@ -160,7 +164,7 @@ const AddButton = () => {
                   onChange={(e) =>
                     setAdditionalBook({
                       ...additionalBook,
-                      description: e.target.value
+                      description: e.target.value,
                     })
                   }
                 />
@@ -189,7 +193,8 @@ const AddButton = () => {
             color="primary"
             variant="contained"
             type="submit"
-            onClick={handleSubmit}>
+            onClick={handleSubmit}
+          >
             Add
           </Button>
         </DialogActions>

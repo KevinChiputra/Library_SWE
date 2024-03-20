@@ -14,7 +14,7 @@ import {
   TableHead,
   TableRow,
   Typography,
-  useTheme
+  useTheme,
 } from '@components/material.js';
 
 import { useCommand, useStore } from '@models/store.js';
@@ -28,7 +28,7 @@ import AddButton from '@components/button/add-btn';
 import {
   Search,
   SearchIconWrapper,
-  StyledInputBase
+  StyledInputBase,
 } from '@components/home/search-bar';
 import Filter from '@components/home/filter';
 
@@ -106,8 +106,9 @@ const Books: PageComponent = () => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginY: '1rem'
-        }}>
+          marginY: '1rem',
+        }}
+      >
         <Search>
           <SearchIconWrapper>
             <SearchIcon />
@@ -118,8 +119,8 @@ const Books: PageComponent = () => {
             placeholder="Search title here…"
             sx={{
               '& ::placeholder': {
-                fontSize: '12px'
-              }
+                fontSize: '12px',
+              },
             }}
           />
         </Search>
@@ -141,8 +142,9 @@ const Books: PageComponent = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center'
-          }}>
+            alignItems: 'center',
+          }}
+        >
           <Table sx={{ minWidth: 500 }}>
             {/* TABLE HEADER */}
             <TableHead>
@@ -153,7 +155,8 @@ const Books: PageComponent = () => {
                     width={header == 'Image' ? 200 : undefined}
                     align={
                       header == ('Description' || 'Delete') ? 'left' : 'center'
-                    }>
+                    }
+                  >
                     {header}
                   </TableCell>
                 ))}
@@ -170,10 +173,11 @@ const Books: PageComponent = () => {
                     sx={{
                       cursor: 'pointer',
                       '&:hover': {
-                        backgroundColor: theme.palette.action.hover
-                      }
+                        backgroundColor: theme.palette.action.hover,
+                      },
                     }}
-                    onClick={() => handleDetail(row.id)}>
+                    onClick={() => handleDetail(row.id)}
+                  >
                     <TableCell component="th" scope="row">
                       <img
                         src={row.cover_image}
@@ -192,8 +196,8 @@ const Books: PageComponent = () => {
                           color: 'grey',
                           cursor: 'pointer',
                           '&:hover': {
-                            color: '#B90E0A'
-                          }
+                            color: '#B90E0A',
+                          },
                         }}
                         onClick={(event) => handleDelete(event, row)}
                       />

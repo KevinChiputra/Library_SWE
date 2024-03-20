@@ -11,13 +11,13 @@ import Pagination from '@mui/material/Pagination';
 import { useCommand, useStore } from '@models/store';
 
 import Header from './header';
+import toast from 'react-hot-toast';
 
 const booksPerPage = 6;
 
 const BookList: React.FC = () => {
   const [recommendedPage, setRecommendedPage] = useState(1);
 
-  // Fungsi untuk menangani perubahan halaman pada recommended books
   const handleRecommendedPageChange = (
     _: React.ChangeEvent<unknown>,
     value: number
@@ -25,7 +25,6 @@ const BookList: React.FC = () => {
     setRecommendedPage(value);
   };
 
-  // Menghitung indeks awal dan akhir untuk item yang akan ditampilkan saat ini pada halaman recommended books
   const recommendedStartIndex = (recommendedPage - 1) * booksPerPage;
   const recommendedLastIndex = recommendedStartIndex + booksPerPage;
 
@@ -42,21 +41,22 @@ const BookList: React.FC = () => {
     }
   }, []);
 
-  // Recommended Books
-  //show all books
   const recommendedBooks = useMemo(() => {
     return books || [];
   }, [books]);
 
+  const handleAddToCart = (book: any) => {
+    dispatch(command.cart.addToCart(book));
+    toast.success('Successfully added to cart');
+  };
+
   return (
     <div style={{ marginTop: '12px' }}>
       <Grid container={true} spacing={3}>
-        {/* HEADER */}
         <Grid item xs={12}>
           <Header title="Recommended Books" />
         </Grid>
 
-        {/* BOOKS MAPPING */}
         {recommendedBooks
           .slice(recommendedStartIndex, recommendedLastIndex)
           .map((book, index) => (
@@ -90,9 +90,7 @@ const BookList: React.FC = () => {
                     borderTopLeftRadius: 0,
                     borderTopRightRadius: 0,
                   }}
-                  onClick={() => {
-                    dispatch(command.cart.addToCart(book));
-                  }}
+                  onClick={() => handleAddToCart(book)}
                   variant="contained"
                 >
                   Add To Cart
@@ -101,7 +99,6 @@ const BookList: React.FC = () => {
             </Grid>
           ))}
 
-        {/* PAGINATION */}
         <Grid item xs={12}>
           <div
             style={{
