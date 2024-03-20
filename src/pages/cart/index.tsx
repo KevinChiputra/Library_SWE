@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 import { useCommand, useStore } from '@models/store';
 
-import DeleteIcon from '@mui/icons-material/Delete';
-
 import {
   Box,
   Button,
@@ -24,7 +22,6 @@ const Cart = () => {
   const [state, dispatch] = useStore((store) => store.cart);
   const command = useCommand((cmd) => cmd);
   const cart = useMemo(() => state?.cart, [state]);
-  console.log(cart);
 
   return (
     <>
@@ -109,7 +106,22 @@ const Cart = () => {
 
       {state?.cart?.length !== 0 && (
         <Box sx={{ display: 'flex', marginTop: '16px', justifyContent: 'end' }}>
-          <Button sx={{ alignItems: 'flex-end' }} variant="contained">
+          <Button
+            sx={{ alignItems: 'flex-end' }}
+            variant="contained"
+            onClick={() => {
+              dispatch(
+                command.transactionHistory.addToTransactionHistory({
+                  cart: state?.cart,
+                  totalProduct:
+                    state?.cart?.reduce((acc, curr) => {
+                      return acc + curr.qty;
+                    }, 0) || 0
+                })
+              );
+
+              dispatch(command.cart.clearCart());
+            }}>
             Checkout
           </Button>
         </Box>
