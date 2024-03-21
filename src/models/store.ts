@@ -1,28 +1,44 @@
+import { combineReducers, createStore } from '@nxweb/core';
 import {
-  combineReducers, createStore
-} from '@nxweb/core';
-import {
-  createCommandHook, createDispatchHook, createStoreHook, createStoreProvider
+  createCommandHook,
+  createDispatchHook,
+  createStoreHook,
+  createStoreProvider
 } from '@nxweb/react';
 
+import { booksCommand } from './books/commands.js';
+import { booksReducer } from './books/reducers.js';
+import { cartCommands } from './cart/commands.js';
+import { cartReducer } from './cart/reducers.js';
 import { productsCommand } from './products/commands.js';
 import { productsReducer } from './products/reducers.js';
+import { transactionHistoryReducer } from './transaction-history/reducers.js';
+import { transactionHistoryCommands } from './transaction-history/commands.js';
 
 import type { RootAction, RootModel } from './types.js';
 
 // ** Init reducers
 const rootReducer = combineReducers({
-  products: productsReducer
+  books: booksReducer,
+  products: productsReducer,
+  cart: cartReducer,
+  transactionHistory: transactionHistoryReducer
 });
 
 // ** Init models
 const rootModel: RootModel = {
-  products: {}
+  books: {},
+  products: {},
+  cart: { cart: [] },
+  transactionHistory: { transactionHistory: [] }
 };
 
 // ** Init commands
 const rootCommand = {
-  products: productsCommand
+  books: booksCommand,
+  products: productsCommand,
+  cart: cartCommands,
+  transactionHistory: transactionHistoryCommands
 };
 
 // ** Create store

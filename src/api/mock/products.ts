@@ -3,7 +3,9 @@ import { createMockURL } from '@nxweb/core';
 
 import { endpoint } from '../clients/products.js';
 
-export const products: FetchMockInitializer = (adapter: Readonly<FetchMockAdapter>) => {
+export const products: FetchMockInitializer = (
+  adapter: Readonly<FetchMockAdapter>
+) => {
   const url = createMockURL(endpoint, window.NX.env.apiURL);
 
   adapter.onPost(url).reply(200, {

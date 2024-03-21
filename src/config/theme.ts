@@ -18,35 +18,41 @@ import type {
   HorizontalMenuToggle,
   Mode,
   Skin,
-  VerticalNavToggle
+  VerticalNavToggle,
 } from '@layouts/types.js';
 
 interface ThemeConfig {
-  afterVerticalNavMenuContentPosition: 'fixed' | 'static'
-  appBar: AppBar
-  appBarBlur: boolean
-  beforeVerticalNavMenuContentPosition: 'fixed' | 'static'
-  collapsedNavigationSize: number
-  contentWidth: ContentWidth
-  direction: Direction
-  disableCustomizer: boolean
-  disableRipple: boolean
-  footer: Footer
-  horizontalMenuAnimation: boolean
-  horizontalMenuToggle: HorizontalMenuToggle
-  layout: 'horizontal' | 'vertical'
-  menuTextTruncate: boolean
-  mode: Mode
-  navCollapsed: boolean
-  navHidden: boolean
-  navigationSize: number
-  navSubItemIcon: ReactNode
-  responsiveFontSizes: boolean
-  routingLoader: boolean
-  skin: Skin
-  templateName: string
-  toastPosition: 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center' | 'top-left' | 'top-right'
-  verticalNavToggleType: VerticalNavToggle
+  afterVerticalNavMenuContentPosition: 'fixed' | 'static';
+  appBar: AppBar;
+  appBarBlur: boolean;
+  beforeVerticalNavMenuContentPosition: 'fixed' | 'static';
+  collapsedNavigationSize: number;
+  contentWidth: ContentWidth;
+  direction: Direction;
+  disableCustomizer: boolean;
+  disableRipple: boolean;
+  footer: Footer;
+  horizontalMenuAnimation: boolean;
+  horizontalMenuToggle: HorizontalMenuToggle;
+  layout: 'horizontal' | 'vertical';
+  menuTextTruncate: boolean;
+  mode: Mode;
+  navCollapsed: boolean;
+  navHidden: boolean;
+  navigationSize: number;
+  navSubItemIcon: ReactNode;
+  responsiveFontSizes: boolean;
+  routingLoader: boolean;
+  skin: Skin;
+  templateName: string;
+  toastPosition:
+    | 'bottom-center'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'top-center'
+    | 'top-left'
+    | 'top-right';
+  verticalNavToggleType: VerticalNavToggle;
 }
 
 export const config: ThemeConfig = {
@@ -57,7 +63,7 @@ export const config: ThemeConfig = {
   layout: 'vertical' /* vertical | horizontal */,
   mode: 'light' as Mode /* light | dark | semi-dark /*! Note: semi-dark value will only work for Vertical Layout */,
   skin: 'default' /* default | bordered */,
-  templateName: 'Vuexy' /* App Name */,
+  templateName: 'Library' /* App Name */,
 
   // ** Routing Configs
   routingLoader: true /* true | false */,
@@ -67,23 +73,28 @@ export const config: ThemeConfig = {
   beforeVerticalNavMenuContentPosition: 'fixed' /* fixed | static */,
   collapsedNavigationSize: 82 /* Number in px(Pixels) /*! Note: This is for Vertical navigation menu only */,
   horizontalMenuAnimation: true /* true | false */,
-  horizontalMenuToggle: 'hover' /* click | hover /*! Note: This is for Horizontal navigation menu only */,
+  horizontalMenuToggle:
+    'hover' /* click | hover /*! Note: This is for Horizontal navigation menu only */,
   menuTextTruncate: true /* true | false */,
-  navCollapsed: false /* true | false /*! Note: This is for Vertical navigation menu only */,
+  navCollapsed:
+    false /* true | false /*! Note: This is for Vertical navigation menu only */,
   navHidden: false /* true | false */,
   navigationSize: 260 /* Number in px(Pixels) /*! Note: This is for Vertical navigation menu only */,
   navSubItemIcon: 'tabler:circle' /* Icon */,
-  verticalNavToggleType: 'accordion' /* accordion | collapse /*! Note: This is for Vertical navigation menu only */,
+  verticalNavToggleType:
+    'accordion' /* accordion | collapse /*! Note: This is for Vertical navigation menu only */,
 
   // ** AppBar Configs
-  appBar: 'fixed' /* fixed | static | hidden /*! Note: hidden value will only work for Vertical Layout */,
+  appBar:
+    'fixed' /* fixed | static | hidden /*! Note: hidden value will only work for Vertical Layout */,
   appBarBlur: true /* true | false */,
 
   // ** Other Configs
   disableCustomizer: true /* true | false */,
   disableRipple: false /* true | false */,
   responsiveFontSizes: false /* true | false */,
-  toastPosition: 'top-right' /* Top-left | top-center | top-right | bottom-left | bottom-center | bottom-right */
+  toastPosition:
+    'top-right' /* Top-left | top-center | top-right | bottom-left | bottom-center | bottom-right */,
 };
 
 // ** To use core palette, uncomment the below import
